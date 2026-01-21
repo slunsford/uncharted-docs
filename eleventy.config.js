@@ -28,6 +28,14 @@ export default function(eleventyConfig) {
     });
   });
 
+  // Wrap tables in scrollable container for mobile
+  eleventyConfig.addTransform('wrapTables', (content, outputPath) => {
+    if (outputPath && outputPath.endsWith('.html')) {
+      return content.replace(/<table>/g, '<div class="table-wrapper"><table>').replace(/<\/table>/g, '</table></div>');
+    }
+    return content;
+  });
+
   // Filter to extract headings for TOC
   eleventyConfig.addFilter('toc', (content) => {
     const headings = [];

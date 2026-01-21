@@ -11,6 +11,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--spacing-xl);
+  overflow-x: hidden;
 }
 
 body {

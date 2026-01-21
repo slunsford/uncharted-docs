@@ -48,6 +48,19 @@
   margin-bottom: var(--spacing-md);
 }
 
+.doc-body .table-wrapper {
+  margin-bottom: var(--spacing-md);
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+}
+
+.doc-body .table-wrapper table {
+  margin-bottom: 0;
+  border: none;
+  border-radius: 0;
+}
+
 .doc-body table {
   margin-bottom: var(--spacing-md);
   border: 1px solid var(--color-border);
