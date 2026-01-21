@@ -1,0 +1,17 @@
+<nav class="sidebar" id="sidebar" aria-label="Main navigation">
+  <div class="sidebar-header">
+    <a href="/" class="sidebar-logo">{{ site.title }}</a>
+  </div>
+  <ul class="sidebar-nav">
+    {% for item in nav %}
+    <li>
+      <a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="sidebar-footer">
+    <a href="{{ site.docsRepo }}" class="sidebar-link"><i class="fa-brands fa-github"></i><span>Docs</span></a>
+    <a href="{{ site.pluginRepo }}" class="sidebar-link"><i class="fa-brands fa-github"></i><span>Uncharted</span></a>
+    <a href="{{ site.npm }}" class="sidebar-link"><i class="fa-brands fa-npm"></i><span>npm</span></a>
+  </div>
+</nav>

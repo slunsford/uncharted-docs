@@ -1,0 +1,6 @@
+title: Uncharted
+description: CSS-based charts for Eleventy
+url: https://uncharted.docs.seanlunsford.com
+pluginRepo: https://github.com/seanlunsford/eleventy-plugin-uncharted
+docsRepo: https://github.com/seanlunsford/uncharted-docs
+npm: https://www.npmjs.com/package/eleventy-plugin-uncharted

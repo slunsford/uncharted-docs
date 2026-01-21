@@ -1,0 +1,30 @@
+/* Chart example containers */
+.chart-example {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
+  background-color: var(--color-bg-subtle);
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+/* Override default chart height for documentation examples */
+.chart-example .chart {
+  --chart-height: 10rem;
+  --chart-donut-size: 14rem;
+}
+
+/* Code + preview layout */
+.example-wrapper {
+  margin: var(--spacing-lg) 0;
+}
+
+.example-wrapper pre {
+  margin-bottom: var(--spacing-md);
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.example-wrapper .chart-example {
+  margin-top: 0;
+  border-radius: 0 0 0.5rem 0.5rem;
+  border-top: none;
+}

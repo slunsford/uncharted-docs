@@ -1,0 +1,9 @@
+<nav class="toc" aria-label="Table of contents">
+  <ul class="toc-list">
+    {% for item in tocItems %}
+    <li class="toc-item toc-level-{{ item.level }}">
+      <a href="#{{ item.id }}">{{ item.text }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>

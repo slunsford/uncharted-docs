@@ -1,0 +1,17 @@
+{
+  "name": "uncharted-docs",
+  "version": "1.0.0",
+  "description": "Documentation site for the Uncharted CSS chart plugin",
+  "type": "module",
+  "scripts": {
+    "start": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "eleventy-plugin-uncharted": "^0.4.1",
+    "js-yaml": "^4.1.0",
+    "markdown-it-anchor": "^9.2.0"
+  }
+}

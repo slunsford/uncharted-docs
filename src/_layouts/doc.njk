@@ -1,0 +1,44 @@
+---
+layout: base.njk
+---
+<div class="layout">
+  <button class="sidebar-toggle" aria-expanded="false" aria-controls="sidebar" aria-label="Toggle navigation">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+
+  {% include "sidebar.njk" %}
+
+  <main class="content">
+    <article class="doc">
+      <header class="doc-header">
+        <h1>{{ title }}</h1>
+        {% if subtitle %}<p class="doc-subtitle">{{ subtitle }}</p>{% endif %}
+      </header>
+
+      <div class="doc-toc-inline">
+        {% set tocItems = content | toc %}
+        {% if tocItems.length > 0 %}
+        {% include "toc.njk" %}
+        {% endif %}
+      </div>
+
+      <div class="doc-body">
+        {{ content | safe }}
+      </div>
+    </article>
+  </main>
+
+  <aside class="toc-sidebar">
+    {% set tocItems = content | toc %}
+    {% if tocItems.length > 0 %}
+    <div class="toc-sticky">
+      <h2 class="toc-title">On this page</h2>
+      {% include "toc.njk" %}
+    </div>
+    {% endif %}
+  </aside>
+</div>

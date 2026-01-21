@@ -1,0 +1,72 @@
+.toc-sidebar {
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  border-left: 1px solid var(--color-border);
+}
+
+.toc-sticky {
+  position: sticky;
+  top: var(--spacing-2xl);
+}
+
+.toc-title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-md);
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+}
+
+.toc-item {
+  margin: 0;
+}
+
+.toc-item a {
+  display: block;
+  padding: var(--spacing-xs) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-tight);
+}
+
+.toc-item a:hover {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.toc-level-3 {
+  padding-left: var(--spacing-md);
+}
+
+/* Inline TOC for medium/small screens */
+.doc-toc-inline {
+  display: none;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-subtle);
+  border-radius: 0.5rem;
+}
+
+.doc-toc-inline .toc-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm) var(--spacing-md);
+}
+
+.doc-toc-inline .toc-item {
+  margin: 0;
+}
+
+.doc-toc-inline .toc-level-3 {
+  padding-left: 0;
+}
+
+.doc-toc-inline .toc-level-3::before {
+  content: "└ ";
+  color: var(--color-text-muted);
+}
