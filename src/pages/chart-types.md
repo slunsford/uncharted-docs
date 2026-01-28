@@ -40,6 +40,16 @@ charts:
     file: charts/scatter-demo.csv
     titleX: Population (millions)
     titleY: GDP (trillions)
+  line-demo:
+    type: line
+    title: Monthly Temperatures
+    file: charts/temperature.csv
+    animate: true
+  line-no-dots:
+    type: line
+    title: Monthly Temperatures
+    file: charts/temperature.csv
+    dots: false
   sankey-demo:
     type: sankey
     title: Website Traffic Flow
@@ -48,7 +58,7 @@ charts:
 
 ## Overview
 
-Uncharted supports six chart types, each suited for different data visualization needs.
+Uncharted supports seven chart types, each suited for different data visualization needs.
 
 | Type | Description | Negative Values |
 |------|-------------|-----------------|
@@ -56,6 +66,7 @@ Uncharted supports six chart types, each suited for different data visualization
 | `stacked-bar` | Horizontal bars with stacked segments | No |
 | `stacked-column` | Vertical columns with stacked segments | Yes |
 | `dot` | Categorical dot chart with Y-axis positioning | Yes |
+| `line` | Line chart connecting data points across categories | Yes |
 | `scatter` | XY scatter plot with continuous axes | Yes (X and Y) |
 | `sankey` | Flow diagram showing relationships between nodes | No |
 
@@ -164,6 +175,38 @@ charts:
 <div class="chart-example">
 
 {% chart "dot-demo" %}
+
+</div>
+
+## Line Charts
+
+Line charts connect data points with line segments across categories. They share the same data format and axis behavior as dot charts.
+
+```yaml
+charts:
+  line-demo:
+    type: line
+    title: Monthly Temperatures
+    file: charts/temperature.csv
+```
+
+<div class="chart-example">
+
+{% chart "line-demo" %}
+
+</div>
+
+### Hiding Dots
+
+Use `dots: false` to show only the connecting lines:
+
+```yaml
+dots: false
+```
+
+<div class="chart-example">
+
+{% chart "line-no-dots" %}
 
 </div>
 

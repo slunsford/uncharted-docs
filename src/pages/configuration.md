@@ -9,7 +9,7 @@ All options available when defining a chart:
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `scatter`, `sankey` |
+| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `line`, `scatter`, `sankey` |
 | `title` | string | Chart title |
 | `subtitle` | string | Subtitle below title |
 | `file` | string | Path to CSV file (relative to dataDir) |
@@ -56,6 +56,16 @@ charts:
     maxY: 50
     titleX: "X Axis Label"
     titleY: "Y Axis Label"
+```
+
+### Line Charts
+
+```yaml
+charts:
+  example:
+    type: line
+    file: charts/data.csv
+    dots: false           # hide dots, show lines only (default: true)
 ```
 
 ### Column/Dot Charts
