@@ -42,7 +42,7 @@ charts:
     titleY: GDP (trillions)
   sankey-demo:
     type: sankey
-    title: Budget Allocation
+    title: Website Traffic Flow
     file: charts/sankey-demo.csv
 ---
 
@@ -215,7 +215,7 @@ Sankey diagrams visualize flows between nodes across multiple levels. The width 
 charts:
   sankey-demo:
     type: sankey
-    title: Budget Allocation
+    title: Website Traffic Flow
     file: charts/sankey-demo.csv
 ```
 
@@ -227,16 +227,17 @@ charts:
 
 ### Data Format
 
-Sankey charts require three columns: source, target, and value:
+Sankey charts require three columns in order: source, target, and value. The column names can be anything:
 
 ```csv
-source,target,value
-Budget,Marketing,50000
-Budget,Development,120000
-Marketing,Social,30000
-Marketing,Ads,20000
-Development,Frontend,60000
-Development,Backend,60000
+from,to,visitors
+Search,Homepage,40000
+Search,Product,35000
+Social,Homepage,15000
+Social,Blog,30000
+Homepage,Signup,30000
+Homepage,Bounce,45000
+Product,Purchase,25000
 ```
 
 Nodes are automatically arranged into levels based on the flow relationships.
@@ -247,6 +248,7 @@ Nodes are automatically arranged into levels based on the flow relationships.
 |--------|---------|-------------|
 | `nodeWidth` | 20 | Width of node bars in pixels |
 | `nodePadding` | 10 | Vertical gap between nodes in pixels |
-| `endLabelsOutside` | false | Position last level labels on the right |
+| `endLabelsOutside` | false | Position last-level labels on the right |
+| `proportional` | false | Force proportional node heights for data integrity |
 
-Use `endLabelsOutside: true` when the last level has many nodes with long labels:
+Use `proportional: true` to ensure node heights are strictly proportional to their values. The chart will grow as tall as needed to keep the smallest node visible, which may significantly increase the chart height when data values vary widely.

@@ -78,12 +78,13 @@ charts:
     nodeWidth: 20         # width of node bars in pixels (default: 20)
     nodePadding: 10       # vertical gap between nodes in pixels (default: 10)
     endLabelsOutside: true # position last level labels on the right
+    proportional: true    # force proportional node heights (may increase chart height)
 ```
 
-Sankey data requires three columns: source, target, and value:
+Sankey data requires three columns in order: source, target, and value. The column names can be anything:
 
 ```csv
-source,target,value
+from,to,amount
 Budget,Marketing,50000
 Budget,Development,120000
 Marketing,Social,30000
