@@ -9,7 +9,7 @@ All options available when defining a chart:
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `scatter` |
+| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `scatter`, `sankey` |
 | `title` | string | Chart title |
 | `subtitle` | string | Subtitle below title |
 | `file` | string | Path to CSV file (relative to dataDir) |
@@ -67,6 +67,26 @@ charts:
     min: -50           # minimum Y value (for negative data)
     max: 100           # maximum Y value
     rotateLabels: true # vertical category labels
+```
+
+### Sankey Charts
+
+```yaml
+charts:
+  example:
+    type: sankey
+    nodeWidth: 20         # width of node bars in pixels (default: 20)
+    nodePadding: 10       # vertical gap between nodes in pixels (default: 10)
+    endLabelsOutside: true # position last level labels on the right
+```
+
+Sankey data requires three columns: source, target, and value:
+
+```csv
+source,target,value
+Budget,Marketing,50000
+Budget,Development,120000
+Marketing,Social,30000
 ```
 
 ## Scaling Behavior

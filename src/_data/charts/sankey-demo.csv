@@ -1,0 +1,10 @@
+source,target,value
+Budget,Marketing,50000
+Budget,Development,120000
+Budget,Operations,30000
+Marketing,Social,30000
+Marketing,Ads,20000
+Development,Frontend,60000
+Development,Backend,60000
+Operations,Support,20000
+Operations,Infrastructure,10000

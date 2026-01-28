@@ -40,11 +40,15 @@ charts:
     file: charts/scatter-demo.csv
     titleX: Population (millions)
     titleY: GDP (trillions)
+  sankey-demo:
+    type: sankey
+    title: Budget Allocation
+    file: charts/sankey-demo.csv
 ---
 
 ## Overview
 
-Uncharted supports five chart types, each suited for different data visualization needs.
+Uncharted supports six chart types, each suited for different data visualization needs.
 
 | Type | Description | Negative Values |
 |------|-------------|-----------------|
@@ -53,6 +57,7 @@ Uncharted supports five chart types, each suited for different data visualizatio
 | `stacked-column` | Vertical columns with stacked segments | Yes |
 | `dot` | Categorical dot chart with Y-axis positioning | Yes |
 | `scatter` | XY scatter plot with continuous axes | Yes (X and Y) |
+| `sankey` | Flow diagram showing relationships between nodes | No |
 
 ## Donut Charts
 
@@ -201,3 +206,47 @@ USA,330,21,Americas
 China,1400,14,Asia
 Germany,83,4,Europe
 ```
+
+## Sankey Charts
+
+Sankey diagrams visualize flows between nodes across multiple levels. The width of each flow represents its value.
+
+```yaml
+charts:
+  sankey-demo:
+    type: sankey
+    title: Budget Allocation
+    file: charts/sankey-demo.csv
+```
+
+<div class="chart-example">
+
+{% chart "sankey-demo" %}
+
+</div>
+
+### Data Format
+
+Sankey charts require three columns: source, target, and value:
+
+```csv
+source,target,value
+Budget,Marketing,50000
+Budget,Development,120000
+Marketing,Social,30000
+Marketing,Ads,20000
+Development,Frontend,60000
+Development,Backend,60000
+```
+
+Nodes are automatically arranged into levels based on the flow relationships.
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `nodeWidth` | 20 | Width of node bars in pixels |
+| `nodePadding` | 10 | Vertical gap between nodes in pixels |
+| `endLabelsOutside` | false | Position last level labels on the right |
+
+Use `endLabelsOutside: true` when the last level has many nodes with long labels:
