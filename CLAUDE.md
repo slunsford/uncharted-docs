@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture
 
-This is an Eleventy 3.x documentation site for the [eleventy-plugin-uncharted](https://github.com/seanlunsford/eleventy-plugin-uncharted) CSS chart plugin. Deployed to `uncharted.docs.seanlunsford.com`.
+This is an Eleventy 3.x documentation site for the [eleventy-plugin-uncharted](https://github.com/slunsford/uncharted) CSS chart plugin. Deployed to `uncharted.seanlunsford.com`.
 
 ### Directory Structure
 

@@ -1,8 +1,8 @@
 # Uncharted Documentation
 
-Documentation site for [eleventy-plugin-uncharted](https://github.com/seanlunsford/eleventy-plugin-uncharted), a CSS-based chart plugin for Eleventy.
+Documentation site for [Uncharted](https://github.com/slunsford/uncharted), a CSS-based chart plugin for Eleventy.
 
-**Live site:** https://uncharted.docs.seanlunsford.com
+**Live site:** https://uncharted.seanlunsford.com
 
 ## Development
 
