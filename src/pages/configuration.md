@@ -22,6 +22,9 @@ All options available when defining a chart:
 | `minY` | number | Minimum Y value (scatter only) |
 | `titleX` | string | X-axis title (scatter only, defaults to column name) |
 | `titleY` | string | Y-axis title (scatter only, defaults to column name) |
+| `proportional` | boolean | Maintain data aspect ratio (scatter, sankey) |
+| `legendTitle` | string | Title above series legend (scatter) |
+| `sizeTitle` | string | Title for size legend (scatter) |
 | `legend` | array | Custom legend labels |
 | `center` | object | Donut center content |
 | `showPercentages` | boolean | Show percentages in donut legend |
@@ -56,7 +59,12 @@ charts:
     maxY: 50
     titleX: "X Axis Label"
     titleY: "Y Axis Label"
+    proportional: true      # maintain data aspect ratio
+    legendTitle: "Region"   # title above series legend
+    sizeTitle: "Value"      # title for size legend (enables bubble chart)
 ```
+
+Scatter charts use named column detection: `x`, `y`, `size`, and `series` columns are identified by name (case-insensitive). See [Chart Types](/chart-types/#size-dimension) for details.
 
 ### Line Charts
 

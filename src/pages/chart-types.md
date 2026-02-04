@@ -40,6 +40,14 @@ charts:
     file: charts/scatter-demo.csv
     titleX: Population (millions)
     titleY: GDP (trillions)
+  scatter-size-demo:
+    type: scatter
+    title: Population, GDP & CO₂ Emissions
+    file: charts/scatter-size-demo.csv
+    titleX: Population (millions)
+    titleY: GDP (trillions)
+    legendTitle: Region
+    sizeTitle: CO₂ (tonnes/capita)
   line-demo:
     type: line
     title: Monthly Temperatures
@@ -241,13 +249,76 @@ titleY: "GDP (trillions)"
 
 ### Series Grouping
 
-If your CSV has a fourth column, points are grouped into series and colored accordingly:
+If your CSV has a column named `series`, points are grouped and colored accordingly:
 
 ```csv
-country,population,gdp,region
+country,x,y,series
 USA,330,21,Americas
 China,1400,14,Asia
 Germany,83,4,Europe
+```
+
+### Size Dimension
+
+Add a `size` column for variable dot sizes:
+
+```yaml
+charts:
+  scatter-size-demo:
+    type: scatter
+    title: Population, GDP & CO₂ Emissions
+    file: charts/scatter-size-demo.csv
+    titleX: Population (millions)
+    titleY: GDP (trillions)
+    legendTitle: Region
+    sizeTitle: CO₂ (tonnes/capita)
+```
+
+```csv
+country,x,y,size,series
+USA,330,21,9.8,Americas
+China,1400,14,18.1,Asia
+Germany,83,4,1.5,Europe
+```
+
+<div class="chart-example">
+
+{% chart "scatter-size-demo" %}
+
+</div>
+
+The `sizeTitle` option adds a size legend showing the min/max values. Dot sizes scale linearly from min to max within the data range.
+
+### Named Columns
+
+Scatter charts detect columns by name (case-insensitive):
+
+| Column | Purpose |
+|--------|---------|
+| First column | Point labels (for tooltips) |
+| `x` | X-axis values |
+| `y` | Y-axis values |
+| `size` | Dot size (optional) |
+| `series` | Series grouping (optional) |
+
+If `x` and `y` columns aren't found by name, the second and third columns are used.
+
+### Proportional Scaling
+
+Use `proportional: true` to maintain the data's aspect ratio:
+
+```yaml
+proportional: true
+```
+
+This ensures that equal numeric ranges appear as equal visual distances on both axes, useful for geographic or scientific data.
+
+### Legend Title
+
+Display a title above the series legend with `legendTitle`:
+
+```yaml
+legendTitle: Region
 ```
 
 ## Sankey Charts

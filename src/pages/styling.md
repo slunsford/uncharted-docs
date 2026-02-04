@@ -9,15 +9,19 @@ Override the default color palette and sizing with CSS custom properties:
 
 ```css
 :root {
-  /* Color palette */
-  --chart-color-1: #2196f3;
-  --chart-color-2: #4caf50;
-  --chart-color-3: #ffc107;
-  --chart-color-4: #ff7043;
-  --chart-color-5: #9c27b0;
-  --chart-color-6: #e91e63;
-  --chart-color-7: #009688;
-  --chart-color-8: #78909c;
+  /* Named colors */
+  --chart-color-blue: #2196f3;
+  --chart-color-green: #4caf50;
+  --chart-color-orange: #ff7043;
+  --chart-color-yellow: #ffc107;
+  --chart-color-teal: #009688;
+  --chart-color-purple: #9c27b0;
+  --chart-color-pink: #e91e63;
+  --chart-color-indigo: #3f51b5;
+  --chart-color-red: #f44336;
+  --chart-color-cyan: #00bcd4;
+  --chart-color-lime: #cddc39;
+  --chart-color-gray: #78909c;
 
   /* Background */
   --chart-bg: rgba(128, 128, 128, 0.15);
@@ -27,14 +31,66 @@ Override the default color palette and sizing with CSS custom properties:
   --chart-column-width: 1rem;
   --chart-donut-size: 20rem;
   --chart-donut-hole: 30%;
+
+  /* Dot sizes */
+  --chart-dot-size: 0.75rem;
+  --chart-dot-size-min: 0.375rem;
+  --chart-dot-size-max: 1.5rem;
 }
 ```
 
 ## Available Properties
 
+### Named Colors
+
+Colors can be overridden by name for easier customization:
+
+| Property | Default | Alias |
+|----------|---------|-------|
+| `--chart-color-blue` | `#2196f3` | `--chart-color-1` |
+| `--chart-color-green` | `#4caf50` | `--chart-color-2` |
+| `--chart-color-orange` | `#ff7043` | `--chart-color-3` |
+| `--chart-color-yellow` | `#ffc107` | `--chart-color-4` |
+| `--chart-color-teal` | `#009688` | `--chart-color-5` |
+| `--chart-color-purple` | `#9c27b0` | `--chart-color-6` |
+| `--chart-color-pink` | `#e91e63` | `--chart-color-7` |
+| `--chart-color-indigo` | `#3f51b5` | `--chart-color-8` |
+| `--chart-color-red` | `#f44336` | `--chart-color-9` |
+| `--chart-color-cyan` | `#00bcd4` | `--chart-color-10` |
+| `--chart-color-lime` | `#cddc39` | `--chart-color-11` |
+| `--chart-color-gray` | `#78909c` | `--chart-color-12` |
+
+The numbered aliases (`--chart-color-1`, etc.) reference the named colors. Override either globally:
+
+```css
+:root {
+  /* Change what "blue" looks like everywhere */
+  --chart-color-blue: #1976d2;
+
+  /* Or change the first series color everywhere */
+  --chart-color-1: #1976d2;
+}
+```
+
+Or use named colors to style specific series in a specific chart:
+
+```css
+.chart-sales .chart-series-production {
+  --color: var(--chart-color-green);
+}
+.chart-sales .chart-series-returns {
+  --color: var(--chart-color-red);
+}
+```
+
+### Other Properties
+
 | Property | Default | Description |
 |----------|---------|-------------|
-| `--chart-color-1` through `--chart-color-8` | Various | Series color palette |
+| `--chart-color-1` through `--chart-color-12` | Various | Series color palette |
+| `--chart-dot-size` | `0.75rem` | Dot size (scatter, dot, and line charts) |
+| `--chart-dot-size-min` | `0.375rem` | Minimum dot size (scatter charts with size column) |
+| `--chart-dot-size-max` | `1.5rem` | Maximum dot size (scatter charts with size column) |
 | `--chart-bg` | `rgba(128,128,128,0.15)` | Background/axis color |
 | `--chart-height` | `12rem` | Height of bar/column/dot/scatter charts |
 | `--chart-column-width` | `1rem` | Minimum width per column |
