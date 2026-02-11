@@ -431,22 +431,18 @@ charts:
   scatter:
     type: scatter
     x:
-      column: pop
       max: 100
       title: "Population"
       format:
         thousands: true
     y:
-      column: gdp
       max: 50
       title: "Growth"
       format:
         compact: true
     series:
-      column: region
       title: Region
     size:
-      column: area
       title: Area
 ```
 
