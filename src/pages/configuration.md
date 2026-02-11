@@ -418,6 +418,7 @@ charts:
     titleY: "Growth"
     legendTitle: "Region"
     sizeTitle: "Area"
+    legend: ["Asia", "Europe", "Americas"]
     format:
       x:
         thousands: true
@@ -442,6 +443,10 @@ charts:
         compact: true
     series:
       title: Region
+      columns:
+        asia: Asia
+        europe: Europe
+        americas: Americas
     size:
       title: Area
 ```
