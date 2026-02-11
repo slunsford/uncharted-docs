@@ -27,8 +27,10 @@ charts:
     type: stacked-bar
     title: Platform Growth
     subtitle: Models by domain
-    max: 25
     file: charts/platform-growth.csv
+    x:
+      max: 25
+    legend: true
 ---
 
 {% raw %}{% chart "growth" %}{% endraw %}
@@ -44,7 +46,14 @@ Define reusable charts in `_data/charts.json` or `_data/charts.yaml`:
     "type": "stacked-column",
     "title": "Release Cadence",
     "file": "charts/releases.csv",
-    "legend": ["Production", "Hotfix", "Beta"]
+    "y": {
+      "columns": {
+        "production": "Production",
+        "hotfix": "Hotfix",
+        "beta": "Beta"
+      }
+    },
+    "legend": true
   }
 }
 ```
@@ -81,6 +90,33 @@ charts:
 
 </div>
 
+### Multi-Series Inline Data
+
+For charts with multiple series (dot, line, column, bar), structure data with a category key and value keys:
+
+```yaml
+charts:
+  multi-series:
+    type: dot
+    title: Monthly Metrics
+    x:
+      column: month
+    y:
+      columns:
+        sales: Sales
+        returns: Returns
+    data:
+      - month: Jan
+        sales: 100
+        returns: 10
+      - month: Feb
+        sales: 120
+        returns: 15
+      - month: Mar
+        sales: 90
+        returns: 8
+```
+
 ## CSV File Format
 
 CSV files use the first column as labels and subsequent columns as data series. Column names become legend labels by default.
@@ -96,11 +132,11 @@ Core,8,0
 
 - First column: category labels
 - Additional columns: data series values
-- Header row names become legend labels
+- Header row names become legend labels (or specify with `y.columns`)
 
 ### Scatter Plot Format
 
-For scatter plots, columns are positional:
+For scatter plots, columns are positional unless explicitly mapped:
 
 ```csv
 country,population,gdp,region
@@ -110,11 +146,22 @@ Germany,83,4,Europe
 ```
 
 1. First column: point labels
-2. Second column: X values
-3. Third column: Y values
-4. Fourth column (optional): series grouping
+2. Second column: X values (or column named `x`)
+3. Third column: Y values (or column named `y`)
+4. Additional columns: `series`, `size` (detected by name)
 
-Column names become axis titles by default.
+Or explicitly map columns:
+
+```yaml
+x:
+  column: population
+y:
+  column: gdp
+label:
+  column: country
+series:
+  column: region
+```
 
 ## File Paths
 

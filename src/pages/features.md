@@ -150,15 +150,29 @@ Both X and Y axes can display negative values:
 charts:
   scatter:
     type: scatter
-    minX: -100
-    maxX: 100
-    minY: -50
-    maxY: 50
+    x:
+      min: -100
+      max: 100
+    y:
+      min: -50
+      max: 50
 ```
 
 ## Manual Scaling with Negatives
 
 Set explicit ranges that include negative values:
+
+```yaml
+charts:
+  performance:
+    type: stacked-column
+    y:
+      min: -50
+      max: 100
+    file: charts/performance.csv
+```
+
+Or using global defaults:
 
 ```yaml
 charts:

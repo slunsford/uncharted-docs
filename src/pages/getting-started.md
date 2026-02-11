@@ -76,4 +76,4 @@ charts:
 {% raw %}{% chart "growth" %}{% endraw %}
 ```
 
-See [Data Sources](/data-sources/) for more ways to define chart data.
+Uncharted uses the first CSV column as categories and remaining columns as data series, with column names as legend labels. See [Data Sources](/data-sources/) for more ways to define chart data, and [Configuration](/configuration/) for customization options.

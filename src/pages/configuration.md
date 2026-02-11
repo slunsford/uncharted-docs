@@ -3,6 +3,45 @@ title: Configuration
 subtitle: Complete options reference
 ---
 
+## Zero Config Defaults
+
+Uncharted works out of the box with minimal configuration. For most chart types, you only need `type` and `file`:
+
+```yaml
+charts:
+  sales:
+    type: stacked-column
+    file: charts/sales.csv
+```
+
+With a CSV like:
+
+```csv
+quarter,revenue,costs,profit
+Q1,100,80,20
+Q2,120,90,30
+Q3,140,85,55
+Q4,160,95,65
+```
+
+Uncharted automatically:
+- Uses the **first column** (`quarter`) as category labels
+- Uses **remaining columns** (`revenue`, `costs`, `profit`) as data series
+- Uses **column header names** as legend labels
+- Calculates appropriate **axis scaling** from the data
+
+This convention applies to most chart types:
+
+| Chart Type | First Column | Remaining Columns |
+|------------|--------------|-------------------|
+| dot, line, stacked-column | X-axis categories | Y-axis series |
+| stacked-bar | Y-axis categories | X-axis series |
+| donut | Segment labels | Segment values |
+| scatter | Point labels | Detected by name (`x`, `y`, `series`, `size`) |
+| sankey | Source nodes | Target, then value |
+
+When you need more control—custom labels, axis limits, number formatting—use the axis configuration options described below.
+
 ## Chart Options
 
 All options available when defining a chart:
@@ -12,164 +51,298 @@ All options available when defining a chart:
 | `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `line`, `scatter`, `sankey` |
 | `title` | string | Chart title |
 | `subtitle` | string | Subtitle below title |
-| `file` | string | Path to CSV file (relative to dataDir) |
+| `file` | string | Path to CSV file (relative to `dataDir`) |
 | `data` | array | Inline data array (alternative to file) |
-| `max` | number | Maximum Y value for scaling |
-| `min` | number | Minimum Y value for scaling (column, dot) |
-| `maxX` | number | Maximum X value (scatter only) |
-| `maxY` | number | Maximum Y value (scatter only) |
-| `minX` | number | Minimum X value (scatter only) |
-| `minY` | number | Minimum Y value (scatter only) |
-| `titleX` | string | X-axis title (scatter only, defaults to column name) |
-| `titleY` | string | Y-axis title (scatter only, defaults to column name) |
+| `x` | object | X-axis configuration (see below) |
+| `y` | object | Y-axis configuration (see below) |
 | `proportional` | boolean | Maintain data aspect ratio (scatter, sankey) |
-| `legendTitle` | string | Title above series legend (scatter) |
-| `sizeTitle` | string | Title for size legend (scatter) |
-| `legend` | array | Custom legend labels |
 | `center` | object | Donut center content |
 | `showPercentages` | boolean | Show percentages in donut legend |
+| `legend` | boolean | Show/hide legend (default: true) |
 | `animate` | boolean | Override global animation setting |
-| `format` | object | Number formatting options |
-| `rotateLabels` | boolean | Rotate X-axis labels vertically |
 | `downloadData` | boolean/string | Enable download link |
 
-## Type-Specific Options
+### Column Definition Formats
 
-### Donut Charts
+Columns can be specified in three ways:
+
+**Single column** (string):
+```yaml
+x:
+  column: month
+```
+
+**Multiple columns** (array - uses column names as labels):
+```yaml
+y:
+  columns: [prs, commits]
+```
+
+**Multiple columns with labels** (object):
+```yaml
+y:
+  columns:
+    prs: Pull Requests
+    commits: Commits
+```
+
+### Axis Properties
+
+Each axis can have these properties:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `column` | string | Single column name |
+| `columns` | array/object | Multiple columns, optionally with display labels |
+| `min` | number | Minimum axis value |
+| `max` | number | Maximum axis value |
+| `title` | string | Axis title (scatter only) |
+| `format` | object | Number formatting options |
+| `rotateLabels` | boolean | Rotate labels vertically (x-axis only) |
+
+### Axis Keys by Chart Type
+
+| Chart Type | Axis Keys |
+|------------|-----------|
+| dot, line, stacked-column | `x` (categories), `y` (values) |
+| stacked-bar | `y` (categories), `x` (values) |
+| scatter | `x`, `y` (coordinates), `label`, `series`, `size` |
+| donut | `label`, `value` |
+| sankey | `source`, `target`, `value` |
+
+## Chart Type Examples
+
+### Dot Chart
 
 ```yaml
 charts:
   example:
-    type: donut
-    center:
-      value: total        # or a specific number
-      label: "Total"      # label below the value
-    showPercentages: true # show % instead of values in legend
+    type: dot
+    title: "Chart Title"
+    subtitle: "Optional subtitle"
+    file: data.csv
+
+    x:
+      column: month              # Category column (default: first)
+      rotateLabels: true         # Rotate labels vertically
+
+    y:
+      columns:                   # Value series with labels
+        sales: Sales
+        returns: Returns
+      # OR: columns: [sales, returns]    # Array (use names as labels)
+      # OR: column: revenue              # Single column
+      min: 0
+      max: 100
+      format:
+        thousands: true
+        compact: true
+        decimals: 1
+        currency: { symbol: "$" }
+
+    legend: true
+    animate: true
+    downloadData: true
 ```
 
-### Scatter Charts
-
-```yaml
-charts:
-  example:
-    type: scatter
-    minX: 0
-    maxX: 100
-    minY: 0
-    maxY: 50
-    titleX: "X Axis Label"
-    titleY: "Y Axis Label"
-    proportional: true      # maintain data aspect ratio
-    legendTitle: "Region"   # title above series legend
-    sizeTitle: "Value"      # title for size legend (enables bubble chart)
-```
-
-Scatter charts use named column detection: `x`, `y`, `size`, and `series` columns are identified by name (case-insensitive). See [Chart Types](/chart-types/#size-dimension) for details.
-
-### Line Charts
+### Line Chart
 
 ```yaml
 charts:
   example:
     type: line
-    file: charts/data.csv
-    dots: false           # hide dots, show lines only (default: true)
+    title: "Trend Over Time"
+    file: data.csv
+
+    x:
+      column: date
+      rotateLabels: true
+
+    y:
+      columns:
+        visitors: Unique Visitors
+        pageviews: Page Views
+      max: 100
+      format: { compact: true }
+
+    dots: true                   # Show dots at data points (default: true)
+    legend: true
+    animate: true
 ```
 
-### Column/Dot Charts
+### Stacked Column Chart
 
 ```yaml
 charts:
   example:
     type: stacked-column
-    min: -50           # minimum Y value (for negative data)
-    max: 100           # maximum Y value
-    rotateLabels: true # vertical category labels
+    title: "Quarterly Results"
+    file: data.csv
+
+    x:
+      column: quarter
+      rotateLabels: true
+
+    y:
+      columns:
+        revenue: Revenue
+        costs: Costs
+        profit: Profit/Loss
+      min: -50
+      max: 100
+      format: { thousands: true }
+
+    legend: true
+    animate: true
+    downloadData: "Download quarterly data"
 ```
 
-### Sankey Charts
+### Stacked Bar Chart (Horizontal)
 
 ```yaml
 charts:
   example:
-    type: sankey
-    nodeWidth: 20         # width of node bars in pixels (default: 20)
-    nodePadding: 10       # vertical gap between nodes in pixels (default: 10)
-    endLabelsOutside: true # position last level labels on the right
-    proportional: true    # force proportional node heights (may increase chart height)
+    type: stacked-bar
+    title: "Category Breakdown"
+    file: data.csv
+
+    y:
+      column: category           # Categories on left side
+
+    x:
+      columns:                   # Value series (bars extend right)
+        completed: Completed
+        pending: Pending
+        blocked: Blocked
+      max: 100
+      format: { compact: true }
+
+    legend: true
+    animate: true
+    downloadData: true
 ```
 
-Sankey data requires three columns in order: source, target, and value. The column names can be anything:
-
-```csv
-from,to,amount
-Budget,Marketing,50000
-Budget,Development,120000
-Marketing,Social,30000
-```
-
-## Scaling Behavior
-
-### Automatic Scaling
-
-By default, charts automatically calculate the Y-axis range based on data:
-
-- **Donut**: Always represents 100% of total
-- **Bar/Column**: Scales to largest total value
-- **Dot**: Scales from minimum to maximum value
-- **Scatter**: Scales to contain all points with padding
-
-### Manual Scaling
-
-Override automatic scaling with `min` and `max`:
-
-```yaml
-charts:
-  example:
-    type: stacked-column
-    min: 0
-    max: 100
-    file: charts/data.csv
-```
-
-For scatter charts, use `minX`, `maxX`, `minY`, `maxY`:
+### Scatter Chart
 
 ```yaml
 charts:
   example:
     type: scatter
-    minX: 0
-    maxX: 1500
-    minY: 0
-    maxY: 25
+    title: "Correlation Analysis"
+    file: data.csv
+
+    x:
+      column: population
+      min: 0
+      max: 1000
+      title: "Population (millions)"
+      format: { compact: true }
+
+    y:
+      column: gdp
+      min: 0
+      max: 50000
+      title: "GDP per Capita"
+      format:
+        thousands: true
+        currency: { symbol: "$" }
+
+    label:
+      column: country            # Point identifier for tooltips
+
+    series:
+      column: region
+      title: Region              # Legend title
+
+    size:
+      column: area
+      title: Land Area           # Size legend title
+
+    proportional: true
+    legend: true
+    animate: true
 ```
 
-## Legend Configuration
-
-### From CSV Headers
-
-By default, legend labels come from CSV column headers:
-
-```csv
-quarter,Production,Hotfix,Beta
-Q1,4,2,6
-```
-
-Produces legend: Production, Hotfix, Beta
-
-### Custom Labels
-
-Override with the `legend` option:
+### Donut/Pie Chart
 
 ```yaml
 charts:
   example:
-    type: stacked-column
-    file: charts/releases.csv
-    legend:
-      - "Prod Releases"
-      - "Hotfixes"
-      - "Beta Releases"
+    type: donut
+    title: "Market Share"
+    file: data.csv
+
+    label:
+      column: category           # Segment names (default: first column)
+
+    value:
+      column: share              # Segment values (default: second column)
+      format:
+        compact: true
+        currency: { symbol: "$" }
+
+    center:
+      value: total
+      label: "Total Sales"
+    showPercentages: true
+
+    legend: true
+    animate: true
+```
+
+### Sankey Chart
+
+```yaml
+charts:
+  example:
+    type: sankey
+    title: "Budget Flow"
+    file: data.csv
+
+    source:
+      column: from
+
+    target:
+      column: to
+
+    value:
+      column: amount
+      format:
+        compact: true
+        currency: { symbol: "$" }
+
+    nodeWidth: 20
+    nodePadding: 10
+    endLabelsOutside: true
+    proportional: true
+
+    legend: true
+    animate: true
+```
+
+## Number Formatting
+
+Format options can be specified at the axis level:
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `thousands` | boolean | Add thousand separators (1,000) |
+| `compact` | boolean | Compact notation (1K, 1M) |
+| `decimals` | number | Fixed decimal places |
+| `currency` | object | Currency formatting |
+| `currency.symbol` | string | Currency symbol ("$", "€") |
+| `currency.position` | string | "before" or "after" |
+
+Example:
+
+```yaml
+y:
+  columns: [revenue, profit]
+  format:
+    thousands: true
+    currency:
+      symbol: "$"
+      position: before
 ```
 
 ## Plugin Options
@@ -187,3 +360,112 @@ eleventyConfig.addPlugin(uncharted, {
   dataPath: '/data/'             // public path for CSVs
 });
 ```
+
+## Deprecated Options
+
+The following options are deprecated and will be removed in version 1.0. They still work but emit console warnings during build.
+
+### Column Mapping
+
+| Deprecated | Use Instead |
+|------------|-------------|
+| `columns: { x, y }` | `x: { column }`, `y: { columns }` |
+| `legend: ["Label1", "Label2"]` | `y: { columns: { key: "Label" } }` |
+
+**Before:**
+```yaml
+columns:
+  x: month
+  y: [prs, commits]
+legend: ["Pull Requests", "Commits"]
+```
+
+**After:**
+```yaml
+x:
+  column: month
+y:
+  columns:
+    prs: Pull Requests
+    commits: Commits
+```
+
+### Axis Properties
+
+| Deprecated | Use Instead |
+|------------|-------------|
+| `maxX` | `x: { max }` |
+| `minX` | `x: { min }` |
+| `maxY` | `y: { max }` |
+| `minY` | `y: { min }` |
+| `titleX` | `x: { title }` |
+| `titleY` | `y: { title }` |
+| `format: { x: {...} }` | `x: { format: {...} }` |
+| `format: { y: {...} }` | `y: { format: {...} }` |
+| `rotateLabels` | `x: { rotateLabels }` |
+
+### Scatter Chart Options
+
+| Deprecated | Use Instead |
+|------------|-------------|
+| `legendTitle` | `series: { title }` |
+| `sizeTitle` | `size: { title }` |
+
+### Migration Example
+
+**Before:**
+```yaml
+charts:
+  scatter:
+    type: scatter
+    maxX: 100
+    maxY: 50
+    titleX: "Population"
+    titleY: "Growth"
+    legendTitle: "Region"
+    sizeTitle: "Area"
+    columns:
+      x: pop
+      y: gdp
+      series: region
+      size: area
+    format:
+      x:
+        thousands: true
+      y:
+        compact: true
+```
+
+**After:**
+```yaml
+charts:
+  scatter:
+    type: scatter
+    x:
+      column: pop
+      max: 100
+      title: "Population"
+      format:
+        thousands: true
+    y:
+      column: gdp
+      max: 50
+      title: "Growth"
+      format:
+        compact: true
+    series:
+      column: region
+      title: Region
+    size:
+      column: area
+      title: Area
+```
+
+## Precedence Rules
+
+When both new and deprecated options are present, the new schema always takes precedence:
+
+1. `y: { columns }` overrides `columns: { y }`
+2. `y: { columns: { key: "Label" } }` overrides `legend: []`
+3. `x: { max }` overrides `maxX` and `max`
+4. `series: { title }` overrides `legendTitle`

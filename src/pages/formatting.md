@@ -171,23 +171,37 @@ format:
 
 ## Scatter Chart Formatting
 
-Scatter charts support separate formatting for X and Y axes:
+Scatter charts support separate formatting for X and Y axes. Use the axis-specific format objects:
 
 ```yaml
 charts:
   scatter:
     type: scatter
     file: charts/data.csv
-    format:
-      x:
+    x:
+      format:
         thousands: true
-      y:
+    y:
+      format:
         compact: true
         currency:
           symbol: "$"
 ```
 
 This applies different formatting to each axis independently.
+
+You can also set a global format as fallback and override specific axes:
+
+```yaml
+charts:
+  scatter:
+    type: scatter
+    format:
+      thousands: true    # default for both axes
+    x:
+      format:
+        compact: true    # override for X axis only
+```
 
 ## Combining Options
 

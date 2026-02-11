@@ -19,17 +19,14 @@ charts:
     type: stacked-bar
     title: Team Growth
     file: charts/platform-growth.csv
-    legend:
-      - Existing
-      - New Hires
+    x:
+      columns:
+        existing: Existing
+        new: New Hires
   column-demo:
     type: stacked-column
     title: Release Cadence
     file: charts/releases.csv
-    legend:
-      - Production
-      - Hotfix
-      - Beta
   dot-demo:
     type: dot
     title: Monthly Temperatures
@@ -38,16 +35,22 @@ charts:
     type: scatter
     title: Population vs GDP
     file: charts/scatter-demo.csv
-    titleX: Population (millions)
-    titleY: GDP (trillions)
+    x:
+      title: Population (millions)
+    y:
+      title: GDP (trillions)
   scatter-size-demo:
     type: scatter
     title: Population, GDP & CO₂ Emissions
     file: charts/scatter-size-demo.csv
-    titleX: Population (millions)
-    titleY: GDP (trillions)
-    legendTitle: Region
-    sizeTitle: CO₂ (tonnes/capita)
+    x:
+      title: Population (millions)
+    y:
+      title: GDP (trillions)
+    series:
+      title: Region
+    size:
+      title: CO₂ (tonnes/capita)
   line-demo:
     type: line
     title: Monthly Temperatures
@@ -127,9 +130,10 @@ charts:
     type: stacked-bar
     title: Team Growth
     file: charts/platform-growth.csv
-    legend:
-      - Existing
-      - New Hires
+    x:
+      columns:
+        existing: Existing
+        new: New Hires
 ```
 
 <div class="chart-example">
@@ -148,10 +152,6 @@ charts:
     type: stacked-column
     title: Release Cadence
     file: charts/releases.csv
-    legend:
-      - Production
-      - Hotfix
-      - Beta
 ```
 
 <div class="chart-example">
@@ -162,10 +162,11 @@ charts:
 
 ### Rotated Labels
 
-For long category labels, use `rotateLabels: true`:
+For long category labels, use `x.rotateLabels: true`:
 
 ```yaml
-rotateLabels: true
+x:
+  rotateLabels: true
 ```
 
 ## Dot Charts
@@ -228,8 +229,10 @@ charts:
     type: scatter
     title: Population vs GDP
     file: charts/scatter-demo.csv
-    titleX: Population (millions)
-    titleY: GDP (trillions)
+    x:
+      title: Population (millions)
+    y:
+      title: GDP (trillions)
 ```
 
 <div class="chart-example">
@@ -240,11 +243,13 @@ charts:
 
 ### Axis Titles
 
-By default, axis titles come from CSV column names. Override with explicit titles:
+Specify axis titles in the axis configuration:
 
 ```yaml
-titleX: "Population (millions)"
-titleY: "GDP (trillions)"
+x:
+  title: "Population (millions)"
+y:
+  title: "GDP (trillions)"
 ```
 
 ### Series Grouping
@@ -258,6 +263,14 @@ China,1400,14,Asia
 Germany,83,4,Europe
 ```
 
+Or explicitly specify the column:
+
+```yaml
+series:
+  column: region
+  title: Region    # Legend title
+```
+
 ### Size Dimension
 
 Add a `size` column for variable dot sizes:
@@ -268,10 +281,14 @@ charts:
     type: scatter
     title: Population, GDP & CO₂ Emissions
     file: charts/scatter-size-demo.csv
-    titleX: Population (millions)
-    titleY: GDP (trillions)
-    legendTitle: Region
-    sizeTitle: CO₂ (tonnes/capita)
+    x:
+      title: Population (millions)
+    y:
+      title: GDP (trillions)
+    series:
+      title: Region
+    size:
+      title: CO₂ (tonnes/capita)
 ```
 
 ```csv
@@ -287,7 +304,7 @@ Germany,83,4,1.5,Europe
 
 </div>
 
-The `sizeTitle` option adds a size legend showing the min/max values. Dot sizes scale linearly from min to max within the data range.
+The `size.title` option adds a size legend showing the min/max values. Dot sizes scale linearly from min to max within the data range.
 
 ### Named Columns
 
@@ -303,6 +320,21 @@ Scatter charts detect columns by name (case-insensitive):
 
 If `x` and `y` columns aren't found by name, the second and third columns are used.
 
+Or explicitly specify columns:
+
+```yaml
+x:
+  column: population
+y:
+  column: gdp
+label:
+  column: country
+series:
+  column: region
+size:
+  column: area
+```
+
 ### Proportional Scaling
 
 Use `proportional: true` to maintain the data's aspect ratio:
@@ -312,14 +344,6 @@ proportional: true
 ```
 
 This ensures that equal numeric ranges appear as equal visual distances on both axes, useful for geographic or scientific data.
-
-### Legend Title
-
-Display a title above the series legend with `legendTitle`:
-
-```yaml
-legendTitle: Region
-```
 
 ## Sankey Charts
 
@@ -341,7 +365,7 @@ charts:
 
 ### Data Format
 
-Sankey charts require three columns in order: source, target, and value. The column names can be anything:
+Sankey charts require three columns: source, target, and value. The column names can be anything:
 
 ```csv
 from,to,visitors
@@ -352,6 +376,19 @@ Social,Blog,30000
 Homepage,Signup,30000
 Homepage,Bounce,45000
 Product,Purchase,25000
+```
+
+Or explicitly specify columns:
+
+```yaml
+source:
+  column: from
+target:
+  column: to
+value:
+  column: visitors
+  format:
+    compact: true
 ```
 
 Nodes are automatically arranged into levels based on the flow relationships.

@@ -2,19 +2,10 @@
 title: Introduction
 permalink: /
 charts:
-  issues:
-    type: donut
-    title: Issue Types
-    center:
-      value: total
-      label: Issues
-    data:
-      - label: Features
-        value: 33
-      - label: Bugs
-        value: 21
-      - label: Other
-        value: 4
+  releases:
+    type: stacked-column
+    title: Release Cadence
+    file: charts/releases.csv
 ---
 
 Uncharted is a CSS-based chart plugin for [Eleventy](https://www.11ty.dev/). It renders charts as pure HTML and CSS with no JavaScript dependencies for display.
@@ -31,36 +22,39 @@ Uncharted is a CSS-based chart plugin for [Eleventy](https://www.11ty.dev/). It 
 
 ## Quick Example
 
-Define a chart in your page's frontmatter:
+Create a CSV file in your data directory:
+
+```csv
+quarter,Production,Hotfix,Beta
+Q1,4,2,6
+Q2,3,5,8
+Q3,6,1,4
+Q4,5,3,7
+```
+
+Define a chart in your page's frontmatter—just `type` and `file`:
 
 ```yaml
 charts:
-  issues:
-    type: donut
-    title: Issue Types
-    center:
-      value: total
-      label: Issues
-    data:
-      - label: Features
-        value: 33
-      - label: Bugs
-        value: 21
-      - label: Other
-        value: 4
+  releases:
+    type: stacked-column
+    title: Release Cadence
+    file: charts/releases.csv
 ```
 
-Then render it with the `chart` shortcode:
+Render it with the `chart` shortcode:
 
 ```liquid
-{% raw %}{% chart "issues" %}{% endraw %}
+{% raw %}{% chart "releases" %}{% endraw %}
 ```
 
 <div class="chart-example">
 
-{% chart "issues" %}
+{% chart "releases" %}
 
 </div>
+
+Uncharted automatically uses the first column as categories and remaining columns as data series, with column names as legend labels. See [Configuration](/configuration/) for customizing column mapping, axis limits, and formatting.
 
 ## Installation
 
