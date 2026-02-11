@@ -373,8 +373,6 @@ The following options are deprecated and will be removed in version 1.0. They st
 
 **Before:**
 ```yaml
-columns:
-  y: [prs, commits]
 legend: ["Pull Requests", "Commits"]
 ```
 
@@ -420,11 +418,6 @@ charts:
     titleY: "Growth"
     legendTitle: "Region"
     sizeTitle: "Area"
-    columns:
-      x: pop
-      y: gdp
-      series: region
-      size: area
     format:
       x:
         thousands: true
@@ -437,24 +430,23 @@ charts:
 charts:
   scatter:
     type: scatter
-    columns:
-      x: pop
-      y: gdp
-      series: region
-      size: area
     x:
+      column: pop
       max: 100
       title: "Population"
       format:
         thousands: true
     y:
+      column: gdp
       max: 50
       title: "Growth"
       format:
         compact: true
     series:
+      column: region
       title: Region
     size:
+      column: area
       title: Area
 ```
 
