@@ -369,21 +369,15 @@ The following options are deprecated and will be removed in version 1.0. They st
 
 | Deprecated | Use Instead |
 |------------|-------------|
-| `columns: { x, y }` | `x: { column }`, `y: { columns }` |
 | `legend: ["Label1", "Label2"]` | `y: { columns: { key: "Label" } }` |
 
 **Before:**
 ```yaml
-columns:
-  x: month
-  y: [prs, commits]
 legend: ["Pull Requests", "Commits"]
 ```
 
 **After:**
 ```yaml
-x:
-  column: month
 y:
   columns:
     prs: Pull Requests
@@ -424,11 +418,6 @@ charts:
     titleY: "Growth"
     legendTitle: "Region"
     sizeTitle: "Area"
-    columns:
-      x: pop
-      y: gdp
-      series: region
-      size: area
     format:
       x:
         thousands: true
@@ -442,22 +431,18 @@ charts:
   scatter:
     type: scatter
     x:
-      column: pop
       max: 100
       title: "Population"
       format:
         thousands: true
     y:
-      column: gdp
       max: 50
       title: "Growth"
       format:
         compact: true
     series:
-      column: region
       title: Region
     size:
-      column: area
       title: Area
 ```
 
@@ -465,7 +450,6 @@ charts:
 
 When both new and deprecated options are present, the new schema always takes precedence:
 
-1. `y: { columns }` overrides `columns: { y }`
-2. `y: { columns: { key: "Label" } }` overrides `legend: []`
-3. `x: { max }` overrides `maxX` and `max`
-4. `series: { title }` overrides `legendTitle`
+1. `y: { columns: { key: "Label" } }` overrides `legend: []`
+2. `x: { max }` overrides `maxX` and `max`
+3. `series: { title }` overrides `legendTitle`
