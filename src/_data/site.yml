@@ -4,3 +4,6 @@ url: https://uncharted.seanlunsford.com
 pluginRepo: https://github.com/slunsford/uncharted
 docsRepo: https://github.com/slunsford/uncharted-docs
 npm: https://www.npmjs.com/package/eleventy-plugin-uncharted
+author:
+  mastodon_url: https://mastodon.seanlunsford.com/@sean
+  bluesky_url: https://bsky.app/profile/seanlunsford.com
