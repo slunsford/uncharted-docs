@@ -32,7 +32,7 @@ Configure the plugin by passing an options object:
 
 ```javascript
 eleventyConfig.addPlugin(uncharted, {
-  dataDir: '_data',              // where to find CSV files
+  dataDir: '_data/charts',       // CSV directory relative to root
   animate: true,                 // enable animations globally
   cssPath: '/css/uncharted.css', // output path for stylesheet
   injectCss: false,              // disable automatic CSS handling
@@ -44,7 +44,7 @@ eleventyConfig.addPlugin(uncharted, {
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `dataDir` | string | `'_data'` | Directory for CSV files |
+| `dataDir` | string | Eleventy's `dir.data` | Directory for CSV files, relative to root |
 | `animate` | boolean | `false` | Enable animations globally |
 | `cssPath` | string | `'/css/uncharted.css'` | Output path for stylesheet |
 | `injectCss` | boolean | `true` | Automatically inject CSS link |

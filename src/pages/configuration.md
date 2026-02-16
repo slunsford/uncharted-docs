@@ -351,7 +351,7 @@ Global options passed when registering the plugin:
 
 ```javascript
 eleventyConfig.addPlugin(uncharted, {
-  dataDir: '_data',              // CSV file directory
+  dataDir: '_data/charts',       // CSV directory relative to root
   animate: true,                 // enable animations
   cssPath: '/css/uncharted.css', // stylesheet output path
   injectCss: true,               // auto-inject CSS link
@@ -360,6 +360,16 @@ eleventyConfig.addPlugin(uncharted, {
   dataPath: '/data/'             // public path for CSVs
 });
 ```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `dataDir` | string | Eleventy's `dir.data` | Directory for CSV files, relative to root (e.g., `_data/charts`) |
+| `animate` | boolean | `false` | Enable animations globally |
+| `cssPath` | string | `'/css/uncharted.css'` | Output path for stylesheet |
+| `injectCss` | boolean | `true` | Automatically inject CSS link |
+| `downloadData` | boolean | `false` | Show download links on charts |
+| `dataPassthrough` | boolean | `false` | Copy CSV files to output |
+| `dataPath` | string | `'/data/'` | Public URL path for data files |
 
 ## Deprecated Options
 
