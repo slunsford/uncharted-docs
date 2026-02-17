@@ -62,7 +62,7 @@ All options available when defining a chart:
 | `showPercentages` | boolean | Show percentages in donut legend |
 | `legend` | boolean | Show/hide legend (default: true) |
 | `animate` | boolean | Override global animation setting |
-| `showLines` | boolean | Show connecting lines (line charts, default: true) |
+| `lines` | boolean | Show connecting lines (line charts, default: true) |
 | `dots` | boolean | Show dots at data points (line/timeseries, default: true for line, false for timeseries) |
 | `downloadData` | boolean/string | Enable download link |
 | `icons` | string/object | Font Awesome icon(s) for dot/line/scatter charts |
@@ -180,14 +180,14 @@ charts:
       title: "Visits"
       format: { compact: true }
 
-    showLines: true              # Show connecting lines (default: true)
+    lines: true              # Show connecting lines (default: true)
     dots: true                   # Show dots at data points (default: true)
     # icons: "fa-solid fa-star"  # Optional: use icons instead of dots
     legend: true
     animate: true
 ```
 
-Use `showLines: false` to display dots without connecting lines (migration path from deprecated dot charts).
+Use `lines: false` to display dots without connecting lines (migration path from deprecated dot charts).
 
 ### Time-Series Chart
 

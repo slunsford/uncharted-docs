@@ -104,7 +104,7 @@ charts:
     file: charts/temperature.csv
     y:
       title: Temperature (°C)
-    showLines: false
+    lines: false
 ---
 
 ## Overview
@@ -215,7 +215,7 @@ x:
 
 > **Deprecated:** The `dot` chart type is deprecated. Please migrate to one of the following:
 >
-> - **Line chart with `showLines: false`**: For the same visual appearance with no data changes required
+> - **Line chart with `lines: false`**: For the same visual appearance with no data changes required
 > - **Bubble chart**: For variable-sized dots (requires data reformatting)
 >
 > See the [Line Charts](#line-charts) or [Bubble Charts](#bubble-charts) sections for details.
@@ -256,10 +256,10 @@ charts:
 
 ### Hiding Lines
 
-Use `showLines: false` to display dots without connecting lines (useful for migrating from dot charts):
+Use `lines: false` to display dots without connecting lines (useful for migrating from dot charts):
 
 ```yaml
-showLines: false
+lines: false
 ```
 
 <div class="chart-example">
@@ -268,7 +268,7 @@ showLines: false
 
 </div>
 
-This is the recommended migration path from the deprecated `dot` chart type—simply change `type: "dot"` to `type: "line"` and add `showLines: false`.
+This is the recommended migration path from the deprecated `dot` chart type—simply change `type: "dot"` to `type: "line"` and add `lines: false`.
 
 ### Hiding Dots
 
