@@ -90,11 +90,26 @@ charts:
         high: High
         low: Low
       title: Temperature (°C)
+  bubble-demo:
+    type: bubble
+    title: Quarterly Performance
+    file: charts/bubble-demo.csv
+    series:
+      title: Metric
+    size:
+      title: Market Value
+  line-showlines-false:
+    type: line
+    title: Monthly Temperatures
+    file: charts/temperature.csv
+    y:
+      title: Temperature (°C)
+    showLines: false
 ---
 
 ## Overview
 
-Uncharted supports eight chart types, each suited for different data visualization needs.
+Uncharted supports nine chart types, each suited for different data visualization needs.
 
 | Type | Description | Negative Values |
 |------|-------------|-----------------|
@@ -104,6 +119,7 @@ Uncharted supports eight chart types, each suited for different data visualizati
 | `dot` | Categorical dot chart with Y-axis positioning | Yes |
 | `line` | Line chart connecting data points across categories | Yes |
 | `timeseries` | Line chart with continuous X-axis for time-based data | Yes |
+| `bubble` | Categorical X, continuous Y with variable dot sizes | Yes |
 | `scatter` | XY scatter plot with continuous axes | Yes (X and Y) |
 | `sankey` | Flow diagram showing relationships between nodes | No |
 
@@ -197,6 +213,13 @@ x:
 
 ## Dot Charts
 
+> **Deprecated:** The `dot` chart type is deprecated. Please migrate to one of the following:
+>
+> - **Line chart with `showLines: false`**: For the same visual appearance with no data changes required
+> - **Bubble chart**: For variable-sized dots (requires data reformatting)
+>
+> See the [Line Charts](#line-charts) or [Bubble Charts](#bubble-charts) sections for details.
+
 Categorical dot charts position points along a Y-axis. Supports negative values.
 
 ```yaml
@@ -230,6 +253,22 @@ charts:
 {% chart "line-demo" %}
 
 </div>
+
+### Hiding Lines
+
+Use `showLines: false` to display dots without connecting lines (useful for migrating from dot charts):
+
+```yaml
+showLines: false
+```
+
+<div class="chart-example">
+
+{% chart "line-showlines-false" %}
+
+</div>
+
+This is the recommended migration path from the deprecated `dot` chart type—simply change `type: "dot"` to `type: "line"` and add `showLines: false`.
 
 ### Hiding Dots
 
@@ -306,6 +345,87 @@ x:
   title: Year
 y:
   title: Population
+```
+
+## Bubble Charts
+
+Bubble charts combine categorical X-axis positioning with continuous Y values and variable-sized dots. They're ideal for showing three dimensions of data: category, value, and magnitude.
+
+```yaml
+charts:
+  bubble-demo:
+    type: bubble
+    title: Quarterly Performance
+    file: charts/bubble-demo.csv
+    series:
+      title: Metric
+    size:
+      title: Market Value
+```
+
+<div class="chart-example">
+
+{% chart "bubble-demo" %}
+
+</div>
+
+### Data Format
+
+Bubble charts expect CSV data with columns for X (categorical), Y (numeric), and size (numeric). An optional series column enables multi-series grouping:
+
+**Simple (single series):**
+```csv
+x,y,size
+Q1,45,1200
+Q2,78,3400
+Q3,62,2100
+Q4,89,4500
+```
+
+**Multi-series:**
+```csv
+x,y,size,series
+Q1,45,1200,revenue
+Q1,320,800,users
+Q2,78,3400,revenue
+Q2,580,1500,users
+```
+
+### Column Detection
+
+Bubble charts detect columns by name (case-insensitive):
+
+| Column | Purpose |
+|--------|---------|
+| `x` | X-axis categories |
+| `y` | Y-axis values |
+| `size` | Dot size values |
+| `series` | Series grouping (optional) |
+
+If not found by name, the first three columns are used as x, y, and size respectively.
+
+Or explicitly specify columns:
+
+```yaml
+x:
+  column: category
+y:
+  column: value
+size:
+  column: magnitude
+  title: Market Size    # Adds size legend
+series:
+  column: group
+  title: Group          # Legend title
+```
+
+### Size Legend
+
+Add a `size.title` to display a size legend showing min/max values:
+
+```yaml
+size:
+  title: Market Value
 ```
 
 ## Scatter Charts

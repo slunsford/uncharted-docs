@@ -34,8 +34,8 @@ Override the default color palette and sizing with CSS custom properties:
 
   /* Dot sizes */
   --chart-dot-size: 0.75rem;
-  --chart-dot-size-min: 0.375rem;
-  --chart-dot-size-max: 1.5rem;
+  --chart-bubble-size-min: 0.25rem;
+  --chart-bubble-size-max: 2rem;
 }
 ```
 
@@ -88,9 +88,9 @@ Or use named colors to style specific series in a specific chart:
 | Property | Default | Description |
 |----------|---------|-------------|
 | `--chart-color-1` through `--chart-color-12` | Various | Series color palette |
-| `--chart-dot-size` | `0.75rem` | Dot size (scatter, dot, and line charts) |
-| `--chart-dot-size-min` | `0.375rem` | Minimum dot size (scatter charts with size column) |
-| `--chart-dot-size-max` | `1.5rem` | Maximum dot size (scatter charts with size column) |
+| `--chart-dot-size` | `0.75rem` | Dot size (scatter, line, and bubble charts) |
+| `--chart-bubble-size-min` | `0.25rem` | Minimum dot size (scatter and bubble charts with size column) |
+| `--chart-bubble-size-max` | `2rem` | Maximum dot size (scatter and bubble charts with size column) |
 | `--chart-bg` | `rgba(128,128,128,0.15)` | Background/axis color |
 | `--chart-height` | `12rem` | Height of bar/column/dot/scatter charts |
 | `--chart-column-width` | `1rem` | Minimum width per column |
