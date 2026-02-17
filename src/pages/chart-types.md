@@ -98,7 +98,7 @@ charts:
       title: Metric
     size:
       title: Market Value
-  line-showlines-false:
+  line-hide-lines:
     type: line
     title: Monthly Temperatures
     file: charts/temperature.csv
@@ -264,7 +264,7 @@ lines: false
 
 <div class="chart-example">
 
-{% chart "line-showlines-false" %}
+{% chart "line-hide-lines" %}
 
 </div>
 
