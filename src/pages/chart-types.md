@@ -31,6 +31,8 @@ charts:
     type: dot
     title: Monthly Temperatures
     file: charts/temperature.csv
+    y:
+      title: Temperature (°C)
   scatter-demo:
     type: scatter
     title: Population vs GDP
@@ -55,29 +57,53 @@ charts:
     type: line
     title: Monthly Temperatures
     file: charts/temperature.csv
+    y:
+      title: Temperature (°C)
     animate: true
   line-no-dots:
     type: line
     title: Monthly Temperatures
     file: charts/temperature.csv
+    y:
+      title: Temperature (°C)
     dots: false
   sankey-demo:
     type: sankey
     title: Website Traffic Flow
     file: charts/sankey-demo.csv
+  timeseries-demo:
+    type: timeseries
+    title: NZ Livestock Population
+    file: charts/nz-livestock.csv
+    y:
+      title: Population
+      format:
+        compact: true
+  timeseries-dots:
+    type: timeseries
+    title: Daily Temperatures
+    subtitle: "2024"
+    file: charts/daily-temps.csv
+    dots: true
+    y:
+      columns:
+        high: High
+        low: Low
+      title: Temperature (°C)
 ---
 
 ## Overview
 
-Uncharted supports seven chart types, each suited for different data visualization needs.
+Uncharted supports eight chart types, each suited for different data visualization needs.
 
 | Type | Description | Negative Values |
 |------|-------------|-----------------|
-| `donut` | Pie/donut chart using conic-gradient | No |
+| `donut` | Pie/donut chart | No |
 | `stacked-bar` | Horizontal bars with stacked segments | No |
 | `stacked-column` | Vertical columns with stacked segments | Yes |
 | `dot` | Categorical dot chart with Y-axis positioning | Yes |
 | `line` | Line chart connecting data points across categories | Yes |
+| `timeseries` | Line chart with continuous X-axis for time-based data | Yes |
 | `scatter` | XY scatter plot with continuous axes | Yes (X and Y) |
 | `sankey` | Flow diagram showing relationships between nodes | No |
 
@@ -218,6 +244,69 @@ dots: false
 {% chart "line-no-dots" %}
 
 </div>
+
+When `dots: false` is set and `icons` are configured, the icons appear in the legend only.
+
+### Axis Titles
+
+Add labels to the X or Y axis:
+
+```yaml
+x:
+  title: Month
+y:
+  title: Temperature (°C)
+```
+
+## Time-Series Charts
+
+Time-series charts render line charts with a continuous X-axis. Unlike line charts where categories are evenly spaced, time-series charts position data points proportionally based on their actual time values—so gaps in your data appear as gaps in the chart.
+
+```yaml
+charts:
+  timeseries-demo:
+    type: timeseries
+    title: NZ Livestock Population
+    file: charts/nz-livestock.csv
+    y:
+      format:
+        compact: true
+```
+
+<div class="chart-example">
+
+{% chart "timeseries-demo" %}
+
+</div>
+
+Time-series charts support both numeric years (1971, 2024) and ISO dates (2024-02-17). Axis tick intervals are calculated automatically based on the data range.
+
+### Showing Dots
+
+By default, time-series charts show lines without dots. Use `dots: true` to display dots at each data point:
+
+```yaml
+dots: true
+```
+
+<div class="chart-example">
+
+{% chart "timeseries-dots" %}
+
+</div>
+
+When `dots: false` (the default) and `icons` are configured, the icons appear in the legend only.
+
+### Axis Titles
+
+Add labels to the X or Y axis:
+
+```yaml
+x:
+  title: Year
+y:
+  title: Population
+```
 
 ## Scatter Charts
 

@@ -35,6 +35,7 @@ This convention applies to most chart types:
 | Chart Type | First Column | Remaining Columns |
 |------------|--------------|-------------------|
 | dot, line, stacked-column | X-axis categories | Y-axis series |
+| timeseries | X-axis values (years or dates) | Y-axis series |
 | stacked-bar | Y-axis categories | X-axis series |
 | donut | Segment labels | Segment values |
 | scatter | Point labels | Detected by name (`x`, `y`, `series`, `size`) |
@@ -48,7 +49,7 @@ All options available when defining a chart:
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `line`, `scatter`, `sankey` |
+| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `line`, `timeseries`, `scatter`, `sankey` |
 | `title` | string | Chart title |
 | `subtitle` | string | Subtitle below title |
 | `file` | string | Path to CSV file (relative to `dataDir`) |
@@ -61,6 +62,7 @@ All options available when defining a chart:
 | `legend` | boolean | Show/hide legend (default: true) |
 | `animate` | boolean | Override global animation setting |
 | `downloadData` | boolean/string | Enable download link |
+| `icons` | string/object | Font Awesome icon(s) for dot/line/scatter charts |
 
 ### Column Definition Formats
 
@@ -96,7 +98,7 @@ Each axis can have these properties:
 | `columns` | array/object | Multiple columns, optionally with display labels |
 | `min` | number | Minimum axis value |
 | `max` | number | Maximum axis value |
-| `title` | string | Axis title (scatter only) |
+| `title` | string | Axis title (dot, line, timeseries, scatter) |
 | `format` | object | Number formatting options |
 | `rotateLabels` | boolean | Rotate labels vertically (x-axis only) |
 
@@ -105,6 +107,7 @@ Each axis can have these properties:
 | Chart Type | Axis Keys |
 |------------|-----------|
 | dot, line, stacked-column | `x` (categories), `y` (values) |
+| timeseries | `x` (time values), `y` (values) |
 | stacked-bar | `y` (categories), `x` (values) |
 | scatter | `x`, `y` (coordinates), `label`, `series`, `size` |
 | donut | `label`, `value` |
@@ -140,6 +143,12 @@ charts:
         decimals: 1
         currency: { symbol: "$" }
 
+    # Optional: Font Awesome icons instead of dots
+    icons:
+      sales: "fa-solid fa-arrow-up"
+      returns: "fa-solid fa-arrow-down"
+    # OR: icons: "fa-solid fa-star"     # Same icon for all series
+
     legend: true
     animate: true
     downloadData: true
@@ -156,6 +165,7 @@ charts:
 
     x:
       column: date
+      title: Date
       rotateLabels: true
 
     y:
@@ -163,9 +173,37 @@ charts:
         visitors: Unique Visitors
         pageviews: Page Views
       max: 100
+      title: "Visits"
       format: { compact: true }
 
     dots: true                   # Show dots at data points (default: true)
+    # icons: "fa-solid fa-star"  # Optional: use icons instead of dots
+    legend: true
+    animate: true
+```
+
+### Time-Series Chart
+
+```yaml
+charts:
+  example:
+    type: timeseries
+    title: "Population Over Time"
+    file: data.csv
+
+    x:
+      column: year               # Supports years (1994) or ISO dates (2024-02-17)
+      title: Year
+
+    y:
+      columns:
+        cattle: Cattle
+        sheep: Sheep
+      title: "Population"
+      format: { compact: true }
+
+    dots: false                  # Hide dots (default: false for timeseries)
+    # icons: "fa-solid fa-star"  # Optional: icons appear in legend only
     legend: true
     animate: true
 ```
@@ -257,6 +295,11 @@ charts:
     size:
       column: area
       title: Land Area           # Size legend title
+
+    # Optional: icons keyed by series value
+    icons:
+      asia: "fa-solid fa-earth-asia"
+      europe: "fa-solid fa-earth-europe"
 
     proportional: true
     legend: true

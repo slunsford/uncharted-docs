@@ -1,6 +1,6 @@
 ---
 title: Features
-subtitle: Animations, downloads, and negative values
+subtitle: Animations, downloads, icons, and negative values
 charts:
   negative-demo:
     type: stacked-column
@@ -184,6 +184,66 @@ charts:
 ```
 
 The zero line positions proportionally between min and max.
+
+## Icon Support
+
+Dot, line, and scatter charts can display Font Awesome icons instead of default circular dots. Icons inherit series colors automatically.
+
+### Prerequisites
+
+Include Font Awesome in your site:
+
+```html
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+```
+
+### Single Icon for All Series
+
+Use a string to apply the same icon to all data points:
+
+```yaml
+charts:
+  stars:
+    type: dot
+    file: data.csv
+    icons: "fa-solid fa-star"
+```
+
+### Per-Series Icons
+
+Use an object to assign different icons to each series:
+
+```yaml
+charts:
+  development:
+    type: dot
+    file: adoption.csv
+    y:
+      columns:
+        prs: Pull Requests
+        commits: Commits
+    icons:
+      prs: "fa-solid fa-code-merge"
+      commits: "fa-solid fa-code-commit"
+```
+
+### Scatter Charts
+
+For scatter charts, icons are keyed by series value:
+
+```yaml
+charts:
+  metrics:
+    type: scatter
+    file: data.csv
+    series:
+      column: group
+    icons:
+      alpha: "fa-solid fa-circle"
+      beta: "fa-solid fa-square"
+```
+
+Icons also appear in the legend, replacing the default colored dot marker.
 
 ## Accessibility
 
