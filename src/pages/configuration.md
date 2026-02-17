@@ -37,6 +37,7 @@ This convention applies to most chart types:
 | dot, line, stacked-column | X-axis categories | Y-axis series |
 | timeseries | X-axis values (years or dates) | Y-axis series |
 | stacked-bar | Y-axis categories | X-axis series |
+| bubble | X-axis categories | Detected by name (`y`, `size`, `series`) |
 | donut | Segment labels | Segment values |
 | scatter | Point labels | Detected by name (`x`, `y`, `series`, `size`) |
 | sankey | Source nodes | Target, then value |
@@ -49,7 +50,7 @@ All options available when defining a chart:
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `line`, `timeseries`, `scatter`, `sankey` |
+| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `line`, `timeseries`, `bubble`, `scatter`, `sankey` |
 | `title` | string | Chart title |
 | `subtitle` | string | Subtitle below title |
 | `file` | string | Path to CSV file (relative to `dataDir`) |
@@ -61,6 +62,8 @@ All options available when defining a chart:
 | `showPercentages` | boolean | Show percentages in donut legend |
 | `legend` | boolean | Show/hide legend (default: true) |
 | `animate` | boolean | Override global animation setting |
+| `showLines` | boolean | Show connecting lines (line charts, default: true) |
+| `dots` | boolean | Show dots at data points (line/timeseries, default: true for line, false for timeseries) |
 | `downloadData` | boolean/string | Enable download link |
 | `icons` | string/object | Font Awesome icon(s) for dot/line/scatter charts |
 
@@ -109,6 +112,7 @@ Each axis can have these properties:
 | dot, line, stacked-column | `x` (categories), `y` (values) |
 | timeseries | `x` (time values), `y` (values) |
 | stacked-bar | `y` (categories), `x` (values) |
+| bubble | `x` (categories), `y` (values), `series`, `size` |
 | scatter | `x`, `y` (coordinates), `label`, `series`, `size` |
 | donut | `label`, `value` |
 | sankey | `source`, `target`, `value` |
@@ -176,11 +180,14 @@ charts:
       title: "Visits"
       format: { compact: true }
 
+    showLines: true              # Show connecting lines (default: true)
     dots: true                   # Show dots at data points (default: true)
     # icons: "fa-solid fa-star"  # Optional: use icons instead of dots
     legend: true
     animate: true
 ```
+
+Use `showLines: false` to display dots without connecting lines (migration path from deprecated dot charts).
 
 ### Time-Series Chart
 
@@ -259,6 +266,40 @@ charts:
     animate: true
     downloadData: true
 ```
+
+### Bubble Chart
+
+```yaml
+charts:
+  example:
+    type: bubble
+    title: "Quarterly Performance"
+    file: data.csv
+
+    x:
+      column: quarter            # Categorical X-axis
+      title: Quarter
+
+    y:
+      column: value
+      min: 0
+      max: 100
+      title: "Performance"
+      format: { compact: true }
+
+    series:
+      column: metric
+      title: Metric              # Legend title
+
+    size:
+      column: magnitude
+      title: Market Size         # Size legend title
+
+    legend: true
+    animate: true
+```
+
+Bubble charts use categorical X-axis (like dot/line) with variable dot sizes (like scatter).
 
 ### Scatter Chart
 
