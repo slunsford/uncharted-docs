@@ -66,6 +66,7 @@ All options available when defining a chart:
 | `dots` | boolean | Show dots at data points (line/timeseries, default: true for line, false for timeseries) |
 | `downloadData` | boolean/string | Enable download link |
 | `icons` | string/object | Font Awesome icon(s) for dot/line/scatter charts |
+| `image` | object | Per-chart image generation overrides (see [Features](/features/#image-generation)) |
 
 ### Column Definition Formats
 
@@ -454,6 +455,30 @@ eleventyConfig.addPlugin(uncharted, {
 | `downloadData` | boolean | `false` | Show download links on charts |
 | `dataPassthrough` | boolean | `false` | Copy CSV files to output |
 | `dataPath` | string | `'/data/'` | Public URL path for data files |
+| `image` | object | — | Image generation options (see below) |
+
+### Image Generation Options
+
+The `image` object accepts these properties:
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `enabled` | boolean | `false` | Enable PNG image generation |
+| `outputDir` | string | `'/images/charts/'` | Output directory for images |
+| `width` | number | `800` | Default image width in pixels |
+| `height` | number | `400` | Default image height in pixels |
+| `scale` | number | `2` | Device scale factor (2 for retina) |
+| `background` | string | `'#ffffff'` | Default background color |
+| `skipDev` | boolean | `true` | Skip image generation during `--serve`/`--watch` |
+
+Per-chart `image` objects can override `enabled`, `width`, `height`, and `alt`:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `enabled` | boolean | Override global enable/disable |
+| `width` | number | Image width for this chart |
+| `height` | number | Image height for this chart |
+| `alt` | string | Alt text (defaults to chart title or ID) |
 
 ## Deprecated Options
 

@@ -1,6 +1,6 @@
 ---
 title: Features
-subtitle: Animations, downloads, icons, and negative values
+subtitle: Animations, downloads, icons, image generation, and negative values
 charts:
   negative-demo:
     type: stacked-column
@@ -244,6 +244,87 @@ charts:
 ```
 
 Icons also appear in the legend, replacing the default colored dot marker.
+
+## Image Generation
+
+Generate PNG images of charts for use in RSS feeds, social sharing, or fallback content. Images are rendered using Puppeteer during the build process.
+
+### Prerequisites
+
+Install Puppeteer as a peer dependency:
+
+```bash
+npm install puppeteer
+```
+
+### Plugin Configuration
+
+Enable image generation globally:
+
+```javascript
+eleventyConfig.addPlugin(uncharted, {
+  image: {
+    enabled: true,
+    outputDir: '/images/charts/',  // where images are saved
+    width: 800,                    // default width in pixels
+    height: 400,                   // default height in pixels
+    scale: 2,                      // device scale (2 for retina)
+    background: '#ffffff',         // background color
+    skipDev: true                  // skip during --serve/--watch
+  }
+});
+```
+
+When enabled, charts automatically include `data-chart-image` and `data-chart-alt` attributes for use with the `chartToImage` filter.
+
+### Per-Chart Configuration
+
+Override global settings for individual charts:
+
+```yaml
+charts:
+  hero-chart:
+    type: stacked-column
+    file: data.csv
+    image:
+      enabled: true
+      width: 1200
+      height: 600
+      alt: "Quarterly revenue showing growth trend"
+```
+
+The `alt` option sets the image alt text. If not specified, the chart title or ID is used.
+
+### Getting Image URLs
+
+Use the `chartImageUrl` shortcode to get the root-relative URL of a chart's generated image:
+
+```liquid
+{% raw %}{% chartImageUrl "hero-chart" %}
+<!-- outputs: /images/charts/hero-chart.png -->{% endraw %}
+```
+
+For absolute URLs (required for Open Graph), prepend your site URL:
+
+```liquid
+{% raw %}<meta property="og:image" content="{{ site.url }}{% chartImageUrl "hero-chart" %}">{% endraw %}
+```
+
+### RSS Feeds
+
+Use the `chartToImage` filter to replace chart HTML with `<img>` tags in feed content:
+
+```liquid
+{% raw %}{{ post.content | chartToImage }}{% endraw %}
+```
+
+For absolute URLs in feeds, pass a base URL:
+
+```liquid
+{% raw %}{{ post.content | chartToImage: "https://example.com" }}{% endraw %}
+```
+
+This replaces any chart `<figure>` elements that have image data with simple `<img>` tags, which work in RSS readers that don't support complex HTML/CSS.
 
 ## Accessibility
 
