@@ -286,14 +286,14 @@ charts:
   hero-chart:
     type: stacked-column
     file: data.csv
+    alt: "Quarterly revenue showing growth trend"
     image:
       enabled: true
       width: 1200
       height: 600
-      alt: "Quarterly revenue showing growth trend"
 ```
 
-The `alt` option sets the image alt text. If not specified, the chart title or ID is used.
+The `alt` option sets the chart's `aria-label` for accessibility. It's also used as image alt text when image generation is enabled. If not specified, the chart title or ID is used.
 
 ### Getting Image URLs
 

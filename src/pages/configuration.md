@@ -66,6 +66,7 @@ All options available when defining a chart:
 | `dots` | boolean | Show dots at data points (line/timeseries, default: true for line, false for timeseries) |
 | `downloadData` | boolean/string | Enable download link |
 | `icons` | string/object | Font Awesome icon(s) for dot/line/scatter charts |
+| `alt` | string | Accessible description (used for `aria-label` and image alt text) |
 | `image` | object | Per-chart image generation overrides (see [Features](/features/#image-generation)) |
 
 ### Column Definition Formats
@@ -471,14 +472,13 @@ The `image` object accepts these properties:
 | `background` | string | `'#ffffff'` | Default background color |
 | `skipDev` | boolean | `true` | Skip image generation during `--serve`/`--watch` |
 
-Per-chart `image` objects can override `enabled`, `width`, `height`, and `alt`:
+Per-chart `image` objects can override `enabled`, `width`, and `height`:
 
 | Property | Type | Description |
 |----------|------|-------------|
 | `enabled` | boolean | Override global enable/disable |
 | `width` | number | Image width for this chart |
 | `height` | number | Image height for this chart |
-| `alt` | string | Alt text (defaults to chart title or ID) |
 
 ## Deprecated Options
 
