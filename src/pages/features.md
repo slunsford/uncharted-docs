@@ -295,6 +295,8 @@ charts:
 
 The `alt` option sets the chart's `aria-label` for accessibility. It's also used as image alt text when image generation is enabled. If not specified, the chart title or ID is used.
 
+Some chart types (such as stacked bars and Sankey diagrams) may need larger `width` or `height` values to be fully visible in the generated image.
+
 ### Getting Image URLs
 
 Use the `chartImageUrl` shortcode to get the root-relative URL of a chart's generated image:
