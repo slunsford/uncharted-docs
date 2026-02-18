@@ -335,10 +335,20 @@ Charts are rendered as `<figure>` elements with proper semantic structure:
 - `<figcaption>` contains the title and subtitle
 - Chart data is represented in HTML, not canvas
 - Legend items are readable by screen readers
-- Color is not the only differentiator (position matters)
+
+Use the `alt` option to add an accessible description to a chart:
+
+```yaml
+charts:
+  sales:
+    type: stacked-column
+    file: sales.csv
+    alt: "Quarterly sales showing 25% growth year over year"
+```
+
+This sets `aria-label` on the chart's `<figure>` element. If not specified, the chart title or ID is used as a fallback.
 
 For additional accessibility, consider:
 
-1. Adding `aria-label` to the figure with a text description
-2. Providing a data table alternative for complex charts
-3. Ensuring sufficient color contrast in custom palettes
+1. Providing a data table alternative for complex charts
+2. Ensuring sufficient color contrast in custom palettes
