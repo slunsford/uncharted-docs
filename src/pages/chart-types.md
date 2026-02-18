@@ -73,10 +73,10 @@ charts:
     file: charts/sankey-demo.csv
   timeseries-demo:
     type: timeseries
-    title: NZ Livestock Population
-    file: charts/nz-livestock.csv
+    title: Regional Transit Ridership
+    file: charts/transit-ridership.csv
     y:
-      title: Population
+      title: Riders
       format:
         compact: true
   timeseries-dots:
@@ -305,8 +305,8 @@ Time-series charts render line charts with a continuous X-axis. Unlike line char
 charts:
   timeseries-demo:
     type: timeseries
-    title: NZ Livestock Population
-    file: charts/nz-livestock.csv
+    title: Regional Transit Ridership
+    file: charts/transit-ridership.csv
     y:
       format:
         compact: true
