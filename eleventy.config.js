@@ -42,8 +42,11 @@ export default function(eleventyConfig) {
     const regex = /<h([23])[^>]*id="([^"]+)"[^>]*>.*?<a[^>]*>([^<]*(?:<[^/a][^>]*>[^<]*<\/[^a][^>]*>)*[^<]*)<\/a>.*?<\/h[23]>/gi;
     let match;
     while ((match = regex.exec(content)) !== null) {
-      // Clean up the heading text by removing any nested tags
-      const text = match[3].replace(/<[^>]+>/g, '').trim();
+      // Clean up the heading text - remove badge spans entirely, then strip other tags
+      const text = match[3]
+        .replace(/<span class="badge">[^<]*<\/span>/gi, '')
+        .replace(/<[^>]+>/g, '')
+        .trim();
       headings.push({
         level: parseInt(match[1]),
         id: match[2],
