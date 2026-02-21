@@ -105,3 +105,15 @@
 .doc-body h3:hover a::before {
   opacity: 1;
 }
+
+/* Badge for beta/new features */
+.badge {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: 0.125em 0.5em;
+  border-radius: 0.25rem;
+  background-color: var(--color-accent);
+  color: white;
+  vertical-align: middle;
+  margin-left: var(--spacing-sm);
+}

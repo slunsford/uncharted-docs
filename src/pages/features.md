@@ -245,9 +245,11 @@ charts:
 
 Icons also appear in the legend, replacing the default colored dot marker.
 
-## Image Generation
+## Image Generation <span class="badge">Beta</span>
 
 Generate PNG images of charts for use in RSS feeds, social sharing, or fallback content. Images are rendered using Puppeteer during the build process.
+
+**Note:** This feature requires v1.0.0-beta.1 or later.
 
 ### Prerequisites
 
@@ -327,6 +329,10 @@ For absolute URLs in feeds, pass a base URL:
 ```
 
 This replaces any chart `<figure>` elements that have image data with simple `<img>` tags, which work in RSS readers that don't support complex HTML/CSS.
+
+### Vercel Deployment
+
+Puppeteer requires Chromium, which doesn't work in Vercel's build environment. To use image generation with Vercel, build your site in an environment where Puppeteer works (such as locally or in GitHub Actions) and deploy the output using the Vercel CLI.
 
 ## Accessibility
 
