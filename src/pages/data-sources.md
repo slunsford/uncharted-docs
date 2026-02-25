@@ -92,12 +92,12 @@ charts:
 
 ### Multi-Series Inline Data
 
-For charts with multiple series (dot, line, column, bar), structure data with a category key and value keys:
+For charts with multiple series (line, column, bar), structure data with a category key and value keys:
 
 ```yaml
 charts:
   multi-series:
-    type: dot
+    type: line
     title: Monthly Metrics
     x:
       column: month

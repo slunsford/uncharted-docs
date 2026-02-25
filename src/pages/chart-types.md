@@ -27,12 +27,6 @@ charts:
     type: stacked-column
     title: Release Cadence
     file: charts/releases.csv
-  dot-demo:
-    type: dot
-    title: Monthly Temperatures
-    file: charts/temperature.csv
-    y:
-      title: Temperature (°C)
   scatter-demo:
     type: scatter
     title: Population vs GDP
@@ -109,14 +103,13 @@ charts:
 
 ## Overview
 
-Uncharted supports nine chart types, each suited for different data visualization needs.
+Uncharted supports eight chart types, each suited for different data visualization needs.
 
 | Type | Description | Negative Values |
 |------|-------------|-----------------|
 | `donut` | Pie/donut chart | No |
 | `stacked-bar` | Horizontal bars with stacked segments | No |
 | `stacked-column` | Vertical columns with stacked segments | Yes |
-| `dot` | Categorical dot chart with Y-axis positioning | Yes |
 | `line` | Line chart connecting data points across categories | Yes |
 | `timeseries` | Line chart with continuous X-axis for time-based data | Yes |
 | `bubble` | Categorical X, continuous Y with variable dot sizes | Yes |
@@ -211,31 +204,6 @@ x:
   rotateLabels: true
 ```
 
-## Dot Charts
-
-> **Deprecated:** The `dot` chart type is deprecated. Please migrate to one of the following:
->
-> - **Line chart with `lines: false`**: For the same visual appearance with no data changes required
-> - **Bubble chart**: For variable-sized dots (requires data reformatting)
->
-> See the [Line Charts](#line-charts) or [Bubble Charts](#bubble-charts) sections for details.
-
-Categorical dot charts position points along a Y-axis. Supports negative values.
-
-```yaml
-charts:
-  dot-demo:
-    type: dot
-    title: Monthly Temperatures
-    file: charts/temperature.csv
-```
-
-<div class="chart-example">
-
-{% chart "dot-demo" %}
-
-</div>
-
 ## Line Charts
 
 Line charts connect data points with line segments across categories. They share the same data format and axis behavior as dot charts.
@@ -256,7 +224,7 @@ charts:
 
 ### Hiding Lines
 
-Use `lines: false` to display dots without connecting lines (useful for migrating from dot charts):
+Use `lines: false` to display dots without connecting lines:
 
 ```yaml
 lines: false
@@ -267,8 +235,6 @@ lines: false
 {% chart "line-hide-lines" %}
 
 </div>
-
-This is the recommended migration path from the deprecated `dot` chart type—simply change `type: "dot"` to `type: "line"` and add `lines: false`.
 
 ### Hiding Dots
 

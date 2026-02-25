@@ -3,7 +3,8 @@ title: Value Formatting
 subtitle: Thousands separators, currency, and compact notation
 charts:
   thousands-demo:
-    type: dot
+    type: line
+    lines: false
     title: Monthly Revenue
     format:
       thousands: true
@@ -27,7 +28,8 @@ charts:
       - label: 2024
         value: 4200000
   currency-demo:
-    type: dot
+    type: line
+    lines: false
     title: Sales by Region
     format:
       thousands: true
@@ -63,7 +65,8 @@ Add commas to large numbers:
 ```yaml
 charts:
   revenue:
-    type: dot
+    type: line
+    lines: false
     title: Monthly Revenue
     format:
       thousands: true
@@ -118,7 +121,8 @@ Add currency prefix or suffix:
 ```yaml
 charts:
   sales:
-    type: dot
+    type: line
+    lines: false
     title: Sales by Region
     format:
       thousands: true

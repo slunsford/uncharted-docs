@@ -34,7 +34,7 @@ This convention applies to most chart types:
 
 | Chart Type | First Column | Remaining Columns |
 |------------|--------------|-------------------|
-| dot, line, stacked-column | X-axis categories | Y-axis series |
+| line, stacked-column | X-axis categories | Y-axis series |
 | timeseries | X-axis values (years or dates) | Y-axis series |
 | stacked-bar | Y-axis categories | X-axis series |
 | bubble | X-axis categories | Detected by name (`y`, `size`, `series`) |
@@ -50,7 +50,7 @@ All options available when defining a chart:
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `dot`, `line`, `timeseries`, `bubble`, `scatter`, `sankey` |
+| `type` | string | Chart type (required): `donut`, `stacked-bar`, `stacked-column`, `line`, `timeseries`, `bubble`, `scatter`, `sankey` |
 | `title` | string | Chart title |
 | `subtitle` | string | Subtitle below title |
 | `file` | string | Path to CSV file (relative to `dataDir`) |
@@ -111,7 +111,7 @@ Each axis can have these properties:
 
 | Chart Type | Axis Keys |
 |------------|-----------|
-| dot, line, stacked-column | `x` (categories), `y` (values) |
+| line, stacked-column | `x` (categories), `y` (values) |
 | timeseries | `x` (time values), `y` (values) |
 | stacked-bar | `y` (categories), `x` (values) |
 | bubble | `x` (categories), `y` (values), `series`, `size` |
@@ -120,45 +120,6 @@ Each axis can have these properties:
 | sankey | `source`, `target`, `value` |
 
 ## Chart Type Examples
-
-### Dot Chart
-
-```yaml
-charts:
-  example:
-    type: dot
-    title: "Chart Title"
-    subtitle: "Optional subtitle"
-    file: data.csv
-
-    x:
-      column: month              # Category column (default: first)
-      rotateLabels: true         # Rotate labels vertically
-
-    y:
-      columns:                   # Value series with labels
-        sales: Sales
-        returns: Returns
-      # OR: columns: [sales, returns]    # Array (use names as labels)
-      # OR: column: revenue              # Single column
-      min: 0
-      max: 100
-      format:
-        thousands: true
-        compact: true
-        decimals: 1
-        currency: { symbol: "$" }
-
-    # Optional: Font Awesome icons instead of dots
-    icons:
-      sales: "fa-solid fa-arrow-up"
-      returns: "fa-solid fa-arrow-down"
-    # OR: icons: "fa-solid fa-star"     # Same icon for all series
-
-    legend: true
-    animate: true
-    downloadData: true
-```
 
 ### Line Chart
 
@@ -189,7 +150,7 @@ charts:
     animate: true
 ```
 
-Use `lines: false` to display dots without connecting lines (migration path from deprecated dot charts).
+Use `lines: false` to display dots without connecting lines.
 
 ### Time-Series Chart
 
@@ -480,95 +441,3 @@ Per-chart `image` objects can override `enabled`, `width`, and `height`:
 | `width` | number | Image width for this chart |
 | `height` | number | Image height for this chart |
 
-## Deprecated Options
-
-The following options are deprecated and will be removed in version 1.0. They still work but emit console warnings during build.
-
-### Column Mapping
-
-| Deprecated | Use Instead |
-|------------|-------------|
-| `legend: ["Label1", "Label2"]` | `y: { columns: { key: "Label" } }` |
-
-**Before:**
-```yaml
-legend: ["Pull Requests", "Commits"]
-```
-
-**After:**
-```yaml
-y:
-  columns:
-    prs: Pull Requests
-    commits: Commits
-```
-
-### Axis Properties
-
-| Deprecated | Use Instead |
-|------------|-------------|
-| `maxX` | `x: { max }` |
-| `minX` | `x: { min }` |
-| `maxY` | `y: { max }` |
-| `minY` | `y: { min }` |
-| `titleX` | `x: { title }` |
-| `titleY` | `y: { title }` |
-| `format: { x: {...} }` | `x: { format: {...} }` |
-| `format: { y: {...} }` | `y: { format: {...} }` |
-| `rotateLabels` | `x: { rotateLabels }` |
-
-### Scatter Chart Options
-
-| Deprecated | Use Instead |
-|------------|-------------|
-| `legendTitle` | `series: { title }` |
-| `sizeTitle` | `size: { title }` |
-
-### Migration Example
-
-**Before:**
-```yaml
-charts:
-  scatter:
-    type: scatter
-    maxX: 100
-    maxY: 50
-    titleX: "Population"
-    titleY: "Growth"
-    legendTitle: "Region"
-    sizeTitle: "Area"
-    format:
-      x:
-        thousands: true
-      y:
-        compact: true
-```
-
-**After:**
-```yaml
-charts:
-  scatter:
-    type: scatter
-    x:
-      max: 100
-      title: "Population"
-      format:
-        thousands: true
-    y:
-      max: 50
-      title: "Growth"
-      format:
-        compact: true
-    series:
-      title: Region
-    size:
-      title: Area
-```
-
-## Precedence Rules
-
-When both new and deprecated options are present, the new schema always takes precedence:
-
-1. `y: { columns: { key: "Label" } }` overrides `legend: []`
-2. `x: { max }` overrides `maxX` and `max`
-3. `series: { title }` overrides `legendTitle`

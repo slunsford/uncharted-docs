@@ -6,9 +6,10 @@ charts:
     type: stacked-column
     title: Quarterly Performance
     file: charts/quarterly-profit.csv
-    legend:
-      - Cost
-      - Profit/Loss
+    y:
+      columns:
+        Cost: Cost
+        Profit: Profit/Loss
 ---
 
 ## Animations
@@ -108,7 +109,7 @@ If `dataPassthrough` is false, ensure CSV files are available at the expected UR
 
 ## Negative Values
 
-Stacked column, dot, and scatter charts support negative values. When present, a zero axis line appears automatically.
+Stacked column, line, and scatter charts support negative values. When present, a zero axis line appears automatically.
 
 ### Stacked Columns
 
@@ -130,7 +131,7 @@ Q4,30,-10
 
 The chart calculates the range from maximum positive stack to minimum negative stack automatically.
 
-### Dot Charts
+### Line Charts
 
 Points position above or below the zero line:
 
@@ -187,7 +188,7 @@ The zero line positions proportionally between min and max.
 
 ## Icon Support
 
-Dot, line, and scatter charts can display Font Awesome icons instead of default circular dots. Icons inherit series colors automatically.
+Line, time-series, and scatter charts can display Font Awesome icons instead of default circular dots. Icons inherit series colors automatically.
 
 ### Prerequisites
 
@@ -204,7 +205,7 @@ Use a string to apply the same icon to all data points:
 ```yaml
 charts:
   stars:
-    type: dot
+    type: line
     file: data.csv
     icons: "fa-solid fa-star"
 ```
@@ -216,7 +217,7 @@ Use an object to assign different icons to each series:
 ```yaml
 charts:
   development:
-    type: dot
+    type: line
     file: adoption.csv
     y:
       columns:
