@@ -24,7 +24,12 @@ export default function(eleventyConfig) {
     mdLib.use(markdownItAnchor, {
       permalink: markdownItAnchor.permalink.headerLink(),
       level: [2, 3],
-      slugify: (s) => s.toLowerCase().replace(/[^\w]+/g, '-').replace(/(^-|-$)/g, '')
+      slugify: (s) => s
+        .replace(/\s+(Beta|Alpha|New|Deprecated)$/i, '')
+        .trim()
+        .toLowerCase()
+        .replace(/[^\w]+/g, '-')
+        .replace(/(^-|-$)/g, '')
     });
   });
 

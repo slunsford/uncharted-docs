@@ -109,7 +109,7 @@ If `dataPassthrough` is false, ensure CSV files are available at the expected UR
 
 ### Image Download Links
 
-When image generation is enabled, you can also add download links for the generated PNG images:
+When [image generation](#image-generation) is enabled, you can also add download links for the generated PNG images:
 
 ```javascript
 eleventyConfig.addPlugin(uncharted, {
