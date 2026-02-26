@@ -250,7 +250,7 @@ Icons also appear in the legend, replacing the default colored dot marker.
 
 Generate PNG images of charts for use in RSS feeds, social sharing, or fallback content. Images are rendered using Puppeteer during the build process.
 
-**Note:** This feature requires v1.0.0-beta.1 or later.
+**Note:** This feature requires v1.0.0-beta.1 or later. The `cacheDir` option requires v1.0.0-beta.3.
 
 ### Prerequisites
 
@@ -268,7 +268,8 @@ Enable image generation globally:
 eleventyConfig.addPlugin(uncharted, {
   image: {
     enabled: true,
-    outputDir: '/images/charts/',  // where images are saved
+    outputDir: '/images/charts/',  // URL path for images
+    cacheDir: 'images/charts/',    // source directory for cached images
     width: 800,                    // default width in pixels
     height: 400,                   // default height in pixels
     scale: 2,                      // device scale (2 for retina)
@@ -331,9 +332,20 @@ For absolute URLs in feeds, pass a base URL:
 
 This replaces any chart `<figure>` elements that have image data with simple `<img>` tags, which work in RSS readers that don't support complex HTML/CSS.
 
-### Vercel Deployment
+### Caching for Vercel and Other Hosts
 
-Puppeteer requires Chromium, which doesn't work in Vercel's build environment. To use image generation with Vercel, build your site in an environment where Puppeteer works (such as locally or in GitHub Actions) and deploy the output using the Vercel CLI.
+Puppeteer requires Chromium, which doesn't work in some build environments like Vercel. Use the `cacheDir` option to cache generated images in your repository.
+
+When `cacheDir` is set:
+- Images are written to the cache directory (e.g., `images/charts/`)
+- Passthrough copies cached images to the output
+- If Puppeteer is unavailable, cached images are used silently
+
+Generate images locally or in a CI step (like GitHub Actions) that has Puppeteer, then commit them. On Vercel, pass the `--skip-images` flag to skip generation and use the cached images:
+
+```bash
+npm run build -- --skip-images
+```
 
 ## Accessibility
 
