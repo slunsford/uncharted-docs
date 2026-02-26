@@ -107,6 +107,39 @@ If `dataPassthrough` is false, ensure CSV files are available at the expected UR
 /data/charts/revenue.csv
 ```
 
+### Image Download Links
+
+When image generation is enabled, you can also add download links for the generated PNG images:
+
+```javascript
+eleventyConfig.addPlugin(uncharted, {
+  image: { enabled: true },
+  downloadImage: true
+});
+```
+
+This adds a download link below each chart that has image generation enabled. Like `downloadData`, you can override per-chart:
+
+```yaml
+charts:
+  # Uses global setting
+  hero:
+    type: stacked-column
+    file: data.csv
+
+  # Custom download label
+  infographic:
+    type: donut
+    file: stats.csv
+    downloadImage: "Download chart image"
+
+  # Disable for this chart
+  internal:
+    type: line
+    file: metrics.csv
+    downloadImage: false
+```
+
 ## Negative Values
 
 Stacked column, line, and scatter charts support negative values. When present, a zero axis line appears automatically.

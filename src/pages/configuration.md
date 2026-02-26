@@ -65,6 +65,7 @@ All options available when defining a chart:
 | `lines` | boolean | Show connecting lines (line charts, default: true) |
 | `dots` | boolean | Show dots at data points (line/timeseries, default: true for line, false for timeseries) |
 | `downloadData` | boolean/string | Enable download link |
+| `downloadImage` | boolean/string | Enable image download link (requires image generation) |
 | `icons` | string/object | Font Awesome icon(s) for dot/line/scatter charts |
 | `alt` | string | Accessible description (used for `aria-label` and image alt text) |
 | `image` | object | Per-chart image generation overrides (see [Features](/features/#image-generation)) |
@@ -403,6 +404,7 @@ eleventyConfig.addPlugin(uncharted, {
   cssPath: '/css/uncharted.css', // stylesheet output path
   injectCss: true,               // auto-inject CSS link
   downloadData: true,            // show download links
+  downloadImage: true,           // show image download links
   dataPassthrough: true,         // copy CSVs to output
   dataPath: '/data/'             // public path for CSVs
 });
@@ -415,6 +417,7 @@ eleventyConfig.addPlugin(uncharted, {
 | `cssPath` | string | `'/css/uncharted.css'` | Output path for stylesheet |
 | `injectCss` | boolean | `true` | Automatically inject CSS link |
 | `downloadData` | boolean | `false` | Show download links on charts |
+| `downloadImage` | boolean | `false` | Show image download links (requires `image.enabled`) |
 | `dataPassthrough` | boolean | `false` | Copy CSV files to output |
 | `dataPath` | string | `'/data/'` | Public URL path for data files |
 | `image` | object | — | Image generation options (see below) |
