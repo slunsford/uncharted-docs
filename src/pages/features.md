@@ -341,11 +341,7 @@ When `cacheDir` is set:
 - Passthrough copies cached images to the output
 - If Puppeteer is unavailable, cached images are used silently
 
-Generate images locally or in a CI step (like GitHub Actions) that has Puppeteer, then commit them. On Vercel, pass the `--skip-images` flag to skip generation and use the cached images:
-
-```bash
-npm run build -- --skip-images
-```
+Generate images locally or in a CI step (like GitHub Actions) that has Puppeteer, then commit them. On Vercel (or any host without Puppeteer), the cached images are used automatically.
 
 ## Accessibility
 
