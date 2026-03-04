@@ -173,9 +173,9 @@ format:
 # 1234.5 → $1,234.50
 ```
 
-## Scatter Chart Formatting
+## Scatter and Bubble Chart Formatting
 
-Scatter charts support separate formatting for X and Y axes. Use the axis-specific format objects:
+Scatter and bubble charts support separate formatting for X, Y, and size dimensions. Use the axis-specific format objects:
 
 ```yaml
 charts:
@@ -193,6 +193,24 @@ charts:
 ```
 
 This applies different formatting to each axis independently.
+
+### Size Formatting
+
+For scatter and bubble charts with a size dimension, format the size values and legend:
+
+```yaml
+charts:
+  bubble:
+    type: bubble
+    file: charts/data.csv
+    size:
+      column: magnitude
+      title: Magnitude
+      format:
+        decimals: 1
+```
+
+### Global Format Fallback
 
 You can also set a global format as fallback and override specific axes:
 
