@@ -92,17 +92,17 @@
   text-decoration: none;
 }
 
-.doc-body h2 a::before,
-.doc-body h3 a::before {
+.doc-body h2 a::after,
+.doc-body h3 a::after {
   content: "#";
-  margin-right: var(--spacing-sm);
+  margin-left: var(--spacing-sm);
   color: var(--color-text-muted);
   opacity: 0;
   transition: opacity var(--transition-fast);
 }
 
-.doc-body h2:hover a::before,
-.doc-body h3:hover a::before {
+.doc-body h2:hover a::after,
+.doc-body h3:hover a::after {
   opacity: 1;
 }
 
