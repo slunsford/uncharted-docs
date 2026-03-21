@@ -279,11 +279,9 @@ charts:
 
 Icons also appear in the legend, replacing the default colored dot marker.
 
-## Image Generation <span class="badge">Beta</span>
+## Image Generation
 
 Generate PNG images of charts for use in RSS feeds, social sharing, or fallback content. Images are rendered using Puppeteer during the build process.
-
-**Note:** This feature requires v1.0.0-beta.1 or later. The `cacheDir` option requires v1.0.0-beta.3.
 
 ### Prerequisites
 
